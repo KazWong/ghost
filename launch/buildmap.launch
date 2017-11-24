@@ -1,0 +1,28 @@
+<launch>
+
+  <!-- Cartmove -->
+  <node pkg="cartmove" type="cart_sub" name="cart_sub">
+  </node>
+
+  <!-- Odometry -->
+  <node pkg="odometry" name="odometry" type="odometry_node">
+  </node>
+  
+  <!-- Mapping -->
+  <include file="$(find launcher)/launch/gmapping.launch"></include>
+
+  <!-- Keyboard -->
+  <node pkg="cartmove" name="keyboard" type="diff_wheeled_robot_key">
+  </node>
+
+  <!--Lidar TF -->
+  <node pkg="r2d2_setup_tf" name="laser_tf_broadcaster" type="laser_tf_broadcaster"></node>
+
+  <!-- Lidar -->
+  <arg name="host" default="192.168.1.2" />
+  <node pkg="lms1xx" name="lms1xx" type="LMS1xx_node">
+    <param name="host" value="$(arg host)" />
+    <param name="frame_id" value="base_laser" />
+  </node>
+
+</launch>

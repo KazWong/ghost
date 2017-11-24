@@ -1,0 +1,23 @@
+<launch>
+  <arg name="sim" default="false"/>
+  <arg name="joint_pub" default="false"/>
+  <arg name="model" />
+
+  <!-- Setting gui parameter to true for display joint slider -->
+  <node if="$(arg joint_pub)" name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="true"/>
+  </node>
+
+  <!-- Parsing xacro and setting robot_description parameter -->
+  <param name="robot_description" 
+         command="$(find xacro)/xacro.py $(find r2d2_descriptions)/urdf/r2d2_ur5.urdf.xacro" />
+
+  <!-- Starting robot state publish which will publish tf -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+    <param if="$(arg sim)" name="publish_frequency" type="double" value="50.0" />
+    <param if="$(arg sim)" name="tf_prefix" type="string" value="" />
+  </node>
+
+  <node if="$(arg sim)" name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+	args="-urdf -model r2d2 -param robot_description -x 0 "/> 
+</launch>

@@ -1,0 +1,39 @@
+<launch>
+  <arg name="sim" default="false"/>
+
+  <!-- UR Modern Driver -->
+  <include unless="$(arg sim)" file="$(find ur_modern_driver)/launch/ur_common.launch">
+    <arg name="prefix"  value="" />
+    <arg name="robot_ip" value="192.168.1.109"/>
+    <arg name="min_payload"  value="0.0"/>
+    <arg name="max_payload"  value="5.0"/>
+    <arg name="base_frame" value="tool0_controller_base" />
+    <arg name="tool_frame" value="tool0_controller" />
+  </include>
+
+  <!-- Simulation Driver -->
+  <include if="$(arg sim)" file="$(find ur_gazebo)/launch/controller_utils.launch"/>
+  <rosparam if="$(arg sim)" file="$(find ur_gazebo)/controller/arm_controller_ur5.yaml" command="load"/>
+  <node if="$(arg sim)" pkg="controller_manager" name="arm_controller_spawner" type="controller_manager" 
+        args="spawn arm_controller" respawn="false" output="screen"/>
+  <node if="$(arg sim)" pkg="sim_setup" name="fake_ur_driver" type="fake_ur_driver"></node>
+  <node if="$(arg sim)" pkg="sim_setup" name="fake_io_broadcaster" type="fake_io_broadcaster"></node>
+
+  <!-- Trajectory Service -->
+  <node pkg="simple_trajectory" name="simple_trajectory_srv" type="simple_trajectory_srv" output="screen" >
+       <rosparam unless="$(arg sim)" file="$(find simple_trajectory)/param/q1.yaml" command="load"/>
+       <rosparam unless="$(arg sim)" file="$(find simple_trajectory)/param/q2.yaml" command="load"/>
+       <rosparam unless="$(arg sim)" file="$(find simple_trajectory)/param/q3.yaml" command="load"/>
+   
+       <remap if="$(arg sim)" from="follow_joint_trajectory" to="/arm_controller/follow_joint_trajectory"/>
+       <rosparam if="$(arg sim)" file="$(find simple_trajectory)/param/q1_sim.yaml" command="load"/>
+       <rosparam if="$(arg sim)" file="$(find simple_trajectory)/param/q2_sim.yaml" command="load"/>
+       <rosparam if="$(arg sim)" file="$(find simple_trajectory)/param/q3_sim.yaml" command="load"/>
+  </node>
+
+
+  <node pkg="simple_trajectory" name="simple_trajectory_srv_ik" type="simple_trajectory_srv_ik" output="screen"/>
+  <node pkg="simple_trajectory" name="simple_trajectory_srv_joint" type="simple_trajectory_srv_joint" 
+        output="screen" />
+  <node pkg="simple_trajectory" name="simple_trajectory_srv_abs" type="simple_trajectory_srv_abs" output="screen"/>
+</launch>

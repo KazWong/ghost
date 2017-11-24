@@ -1,0 +1,22 @@
+<launch>
+  <arg name="initial_pose_x" default="0.0"/>
+  <arg name="initial_pose_y" default="0.0"/>
+  <arg name="initial_pose_a" default="0.0"/>
+  <arg name="map_file" default=""/>
+
+
+  <!-- Launch acml and load param -->
+  <include file="$(find navigation_param)/includes/amcl.launch.xml">
+    <arg name="initial_pose_x" default="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" default="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" default="$(arg initial_pose_a)"/>
+  </include>
+
+  <include file="$(find navigation_param)/includes/move_base.launch.xml"/>
+  <include file="$(find navigation_param)/launch/load_costmap_params.launch"/>
+
+  <!-- Load Map -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)"/>
+
+</launch>
+
