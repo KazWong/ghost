@@ -21,7 +21,7 @@
   <node pkg="r2d2_setup_tf" name="laser_tf_broadcaster" type="laser_tf_broadcaster"></node>
 
   <!-- Lidar -->
-  <node pkg="lms1xx" name="lms1xx" type="LMS1xx_node">
+  <node unless="$(arg sim)" pkg="lms1xx" name="lms1xx" type="LMS1xx_node">
     <param name="host" value="$(arg host)" />
     <param name="frame_id" value="base_laser" />
   </node>
