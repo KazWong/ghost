@@ -24,7 +24,7 @@
   </include>
 
   <!-- amcl -->
-  <include file="$(find boot)/launch/amcl.launch">
+  <include unless="$(arg sim)" file="$(find boot)/launch/amcl.launch">
     <arg name="initial_pose_x" default="$(arg initial_pose_x)"/>
     <arg name="initial_pose_y" default="$(arg initial_pose_y)"/>
     <arg name="initial_pose_a" default="$(arg initial_pose_a)"/>
