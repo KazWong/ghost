@@ -1,6 +1,10 @@
 <launch>
   <arg name="sim" default="false"/>
+  <arg name="tf" default="true"/>
+  <arg name="ur5" default="true"/>
+  <arg name="amcl" default="true"/>
 
+  <arg name="gui" default="true"/>
   <arg name="world_name" default=""/>
 
   <arg name="initial_pose_x" default="0.0"/>
@@ -11,20 +15,21 @@
   <!-- Gazebo -->
   <include if="$(arg sim)" file="$(find boot)/launch/gazebo.launch">
     <arg name="world_name" default="$(arg world_name)"/>
+    <arg name="gui" default="$(arg gui)" />
   </include>
 
   <!-- Robot TF -->
-  <include file="$(find boot)/launch/tf.launch">
+  <include if="$(arg tf)" file="$(find boot)/launch/tf.launch">
     <arg name="sim" default="$(arg sim)"/>
   </include>
 
   <!-- ur5 -->
-  <include file="$(find boot)/launch/ur5.launch">
+  <include if="$(arg ur5)" file="$(find boot)/launch/ur5.launch">
     <arg name="sim" default="$(arg sim)"/>
   </include>
 
   <!-- amcl -->
-  <include file="$(find boot)/launch/amcl.launch">
+  <include if="$(arg amcl)" file="$(find boot)/launch/amcl.launch">
     <arg name="initial_pose_x" default="$(arg initial_pose_x)"/>
     <arg name="initial_pose_y" default="$(arg initial_pose_y)"/>
     <arg name="initial_pose_a" default="$(arg initial_pose_a)"/>
