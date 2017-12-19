@@ -1,47 +1,32 @@
 <launch>
+  <arg name="ns" default=""/>
   <arg name="sim" default="false"/>
   <arg name="tf" default="true"/>
   <arg name="ur5" default="true"/>
   <arg name="amcl" default="true"/>
-
-  <arg name="debug" default="false"/>
-  <arg name="gui" default="true"/>
-  <arg name="paused" default="false"/>
-  <arg name="use_sim_time" default="true"/>
-  <arg name="headless" default="false"/>
-  <arg name="world_name" default=""/>
 
   <arg name="initial_pose_x" default="0.0"/>
   <arg name="initial_pose_y" default="0.0"/>
   <arg name="initial_pose_a" default="0.0"/>
   <arg name="map_file" default=""/>
 
-  <!-- Gazebo -->
-  <include if="$(arg sim)" file="$(find boot)/launch/gazebo.launch">
-    <arg name="debug" default="$(arg debug)"/>
-    <arg name="gui" default="$(arg gui)"/>
-    <arg name="paused" default="$(arg paused)"/>
-    <arg name="use_sim_time" default="$(arg use_sim_time)"/>
-    <arg name="headless" default="$(arg headless)"/>
-    <arg name="world_name" default="$(arg world_name)"/>
-  </include>
+  <!-- <group ns="$(arg ns)"> -->
+    <!-- Robot TF -->
+    <include if="$(arg tf)" file="$(find boot)/launch/tf.launch">
+      <arg name="sim" default="$(arg sim)"/>
+    </include>
 
-  <!-- Robot TF -->
-  <include if="$(arg tf)" file="$(find boot)/launch/tf.launch">
-    <arg name="sim" default="$(arg sim)"/>
-  </include>
+    <!-- ur5 -->
+    <include if="$(arg ur5)" file="$(find boot)/launch/ur5.launch">
+      <arg name="sim" default="$(arg sim)"/>
+    </include>
 
-  <!-- ur5 -->
-  <include if="$(arg ur5)" file="$(find boot)/launch/ur5.launch">
-    <arg name="sim" default="$(arg sim)"/>
-  </include>
-
-  <!-- amcl -->
-  <include if="$(arg amcl)" file="$(find boot)/launch/amcl.launch">
-    <arg name="initial_pose_x" default="$(arg initial_pose_x)"/>
-    <arg name="initial_pose_y" default="$(arg initial_pose_y)"/>
-    <arg name="initial_pose_a" default="$(arg initial_pose_a)"/>
-    <arg name="map_file" default="$(arg map_file)"/> 
-  </include>
-
+    <!-- amcl -->
+    <include if="$(arg amcl)" file="$(find boot)/launch/amcl.launch">
+      <arg name="initial_pose_x" default="$(arg initial_pose_x)"/>
+      <arg name="initial_pose_y" default="$(arg initial_pose_y)"/>
+      <arg name="initial_pose_a" default="$(arg initial_pose_a)"/>
+      <arg name="map_file" default="$(arg map_file)"/>
+    </include>
+  <!-- </group> -->
 </launch>
