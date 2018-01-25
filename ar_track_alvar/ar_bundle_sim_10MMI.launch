@@ -1,0 +1,31 @@
+<launch>
+<!--<node pkg="tf" type="static_transform_publisher" name="world_to_cam" 
+     args="0 0 0.5 0 0 0 world camera 1" />-->
+<node ns="camera" name="image_proc" pkg="image_proc" type="image_proc"/>
+
+
+
+	<arg name="marker_size" default="9.0" />
+	<arg name="max_new_marker_error" default="0.04" />
+	<arg name="max_track_error" default="0.1" />
+	<arg name="cam_image_topic" default="/camera/image_rect_color" />
+	<arg name="cam_info_topic" default="/camera/camera_info" />
+	<arg name="output_frame" default="/real_camera_left" />
+	<arg name="bundle_files" default="$(find ar_track_alvar)/bundles/MarkerData_0_1_2.xml 
+    $(find ar_track_alvar)/bundles/MarkerData_1_2_3.xml 
+    $(find ar_track_alvar)/bundles/MarkerData_2_3_4.xml 
+    $(find ar_track_alvar)/bundles/MarkerData_3_4_5.xml 
+    $(find ar_track_alvar)/bundles/MarkerData_4_5_6.xml 
+	$(find ar_track_alvar)/bundles/MarkerData_5_6_7.xml 
+	$(find ar_track_alvar)/bundles/MarkerData_6_7_8.xml 
+	$(find ar_track_alvar)/bundles/MarkerData_7_8_9.xml 
+	$(find ar_track_alvar)/bundles/MarkerData_8_9_10.xml 
+	$(find ar_track_alvar)/bundles/MarkerData_9_10_11.xml 
+	$(find ar_track_alvar)/bundles/MarkerData_10_11_12.xml " />
+
+	<node name="ar_track_alvar" pkg="ar_track_alvar" type="findMarkerBundlesNoKinect" respawn="false" output="screen"
+	 args="$(arg marker_size) $(arg max_new_marker_error) $(arg max_track_error) $(arg cam_image_topic) $(arg cam_info_topic)
+	 $(arg output_frame) $(arg bundle_files)" />
+
+
+</launch>

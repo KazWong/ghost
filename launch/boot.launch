@@ -3,12 +3,18 @@
   <arg name="sim" default="false"/>
   <arg name="tf" default="true"/>
   <arg name="ur5" default="true"/>
+  <arg name="agv" default="true"/>
   <arg name="amcl" default="true"/>
 
   <arg name="initial_pose_x" default="0.0"/>
   <arg name="initial_pose_y" default="0.0"/>
   <arg name="initial_pose_a" default="0.0"/>
   <arg name="map_file" default=""/>
+  <arg name="ur_ip" default="0.0.0.0"/>
+  <arg name="sick_ip" default="0.0.0.0" />
+  <arg name="driver" default="imc"/>
+  <arg name="keyboard" default="false"/>
+  <arg name="joystick" default="true"/>
 
   <!-- <group ns="$(arg ns)"> -->
     <!-- Robot TF -->
@@ -19,14 +25,30 @@
     <!-- ur5 -->
     <include if="$(arg ur5)" file="$(find boot)/launch/ur5.launch">
       <arg name="sim" default="$(arg sim)"/>
+      <arg name="ur_ip" default="$(arg ur_ip)"/>
+    </include>
+    
+    <!-- agv -->
+    <include if="$(arg agv)" file="$(find boot)/launch/agv.launch">
+      <arg name="sim" default="$(arg sim)"/>
+      <arg name="driver" default="$(arg driver)"/>
+      <arg name="keyboard" default="$(arg keyboard)"/>
+      <arg name="joystick" default="$(arg joystick)"/>
+    </include>
+    
+    <!-- Lidar -->
+    <include unless="$(arg sim)" file="$(find boot)/launch/lidar.launch">
+      <arg name="sick_ip" default="$(arg sick_ip)" />
     </include>
 
-    <!-- amcl -->
+    <!-- Navigation -->
     <include if="$(arg amcl)" file="$(find boot)/launch/amcl.launch">
       <arg name="initial_pose_x" default="$(arg initial_pose_x)"/>
       <arg name="initial_pose_y" default="$(arg initial_pose_y)"/>
       <arg name="initial_pose_a" default="$(arg initial_pose_a)"/>
       <arg name="map_file" default="$(arg map_file)"/>
     </include>
+    
+    
   <!-- </group> -->
 </launch>

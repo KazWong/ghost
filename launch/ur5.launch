@@ -1,10 +1,11 @@
 <launch>
   <arg name="sim" default="false"/>
+  <arg name="ur_ip" default="0.0.0.0"/>
 
   <!-- UR Modern Driver -->
   <include unless="$(arg sim)" file="$(find ur_modern_driver)/launch/ur_common.launch">
     <arg name="prefix"  value="" />
-    <arg name="robot_ip" value="192.168.1.109"/>
+    <arg name="robot_ip" value="$(arg ur_ip)"/>
     <arg name="min_payload"  value="0.0"/>
     <arg name="max_payload"  value="5.0"/>
     <arg name="base_frame" value="tool0_controller_base" />

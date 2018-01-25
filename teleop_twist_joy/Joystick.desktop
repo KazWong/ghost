@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Battery Status
+Comment=
+Exec=/home/sae/r2d2/src/Robot/Driving/JoyStick/teleop_twist_joy/launch/teleop_joystick.sh
+Icon=
+Terminal=true
+Type=Application
+Name[en_US]=Joystick

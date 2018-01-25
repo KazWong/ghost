@@ -1,0 +1,15 @@
+<launch>
+
+  <arg name="topic_name" default="motor_driver" />
+  <arg name="channel" default="0" />
+  <arg name="bit_rate" default="1000000" />
+  <arg name="loop_rate" default="100" />
+
+  <node pkg="can" name="can_$(arg topic_name)" type="can_node"
+    args="$(arg topic_name) 
+          $(arg channel) 
+          $(arg bit_rate) 
+          $(arg loop_rate)">
+  </node>
+
+</launch>
