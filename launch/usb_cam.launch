@@ -4,6 +4,7 @@
   
   <arg name="camera_frame_id" default="real_camera_left" />
   <arg name="autofocus" default="fault"/>
+  <param name="focus" value="-1"/>
   <arg name="autoexposure" default="false" />
   
   <arg name="image_width" default="1280" />
@@ -26,8 +27,9 @@
 
     <param name="camera_name" value="$(arg camera_frame_id)" />
     <param name="camera_frame_id" value="$(arg camera_frame_id)" />
-    <arg name="autofocus" value="$(arg autofocus)"/>
-    <arg name="autoexposure" value="$(arg autoexposure)" />
+    <param name="autofocus" value="$(arg autofocus)"/>
+    <param name="focus" value="$(arg focus)"/>
+    <param name="autoexposure" value="$(arg autoexposure)" />
     
     <param name="image_width" value="$(arg image_width)" />
     <param name="image_height" value="$(arg image_height)" />
