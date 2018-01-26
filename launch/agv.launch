@@ -25,5 +25,5 @@
   <node if="$(arg keyboard)" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="keyboard"/>
 
   <!-- Odometry -->
-  <node unless="$(arg sim)" pkg="odometry" name="odometry" type="odometry_node"/>
+  <node unless="$(arg sim)" pkg="odometry" name="odometry" type="odometry_node" respawn="true"/>
 </launch>

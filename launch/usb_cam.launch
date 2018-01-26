@@ -4,6 +4,7 @@
   
   <arg name="camera_frame_id" default="real_camera_left" />
   <arg name="autofocus" default="fault"/>
+  <arg name="autoexposure" default="false" />
   
   <arg name="image_width" default="1280" />
   <arg name="image_height" default="720" />
@@ -15,9 +16,10 @@
   <arg name="sharpness" default="-1" />
   
   <arg name="camera_info_url" default=""/>
-  <arg name="remap" default="/image"/>
+  <arg name="remap" default="/image_raw"/>
   
   <arg name="image_view" default="false"/>
+  <arg name="image_proc" default="true"/>
   
   <node pkg="usb_cam" type="usb_cam_node" name="$(arg node_name)">
     <param name="video_device" value="$(arg video_device)" />
@@ -25,6 +27,7 @@
     <param name="camera_name" value="$(arg camera_frame_id)" />
     <param name="camera_frame_id" value="$(arg camera_frame_id)" />
     <arg name="autofocus" value="$(arg autofocus)"/>
+    <arg name="autoexposure" value="$(arg autoexposure)" />
     
     <param name="image_width" value="$(arg image_width)" />
     <param name="image_height" value="$(arg image_height)" />
@@ -42,7 +45,9 @@
     <param name="pixel_format" value="yuyv" />
   </node>
   
-  <node if="$(arg image_view)" pkg="image_view" name="camera_$(arg node_name)" type="image_view">
+  <node ns="$(arg node_name)" name="$(arg node_name)_proc" pkg="image_proc" type="image_proc"/>
+  
+  <node if="$(arg image_view)" pkg="image_view" name="$(arg node_name)_view" type="image_view">
     <remap from="image" to="/$(arg node_name)/image_raw"/>
     <param name="autosize" value="true" />
   </node>
