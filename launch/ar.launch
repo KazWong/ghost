@@ -1,10 +1,13 @@
 <launch>
+  <arg name="Marker" default="bundle"/>
+  
   <arg name="marker_size" default="9.0" />
   <arg name="max_new_marker_error" default="0.04" />
   <arg name="max_track_error" default="0.05" />
   <arg name="cam_image_topic" default="/camera/image_rect_color" />
   <arg name="cam_info_topic" default="/camera/camera_info" />
   <arg name="output_frame" default="/real_camera_left" />
+  
   <arg name="bundle_files" default=" $(find ar_track_alvar)/bundles/MarkerData_1.xml 
                                      $(find ar_track_alvar)/bundles/MarkerData_2.xml 
                                      $(find ar_track_alvar)/bundles/MarkerData_3.xml 
