@@ -1,11 +1,12 @@
 <launch>
   <arg name="node_name" default="usb_cam" />
-  <arg name="video_device" default="/dev/cam_ee" />
+  <arg name="video_device" default="" />
   
-  <arg name="camera_frame_id" default="real_camera_left" />
+  <arg name="camera_frame_id" default="" />
   <arg name="autofocus" default="fault"/>
-  <param name="focus" value="-1"/>
+  <arg name="focus" default="-1"/>
   <arg name="autoexposure" default="false" />
+  <arg name="exposure" default="100" />
   
   <arg name="image_width" default="1280" />
   <arg name="image_height" default="720" />
@@ -22,7 +23,7 @@
   <arg name="image_view" default="false"/>
   <arg name="image_proc" default="true"/>
   
-  <node pkg="usb_cam" type="usb_cam_node" name="$(arg node_name)">
+  <node pkg="usb_cam" type="usb_cam_node" name="$(arg node_name)"  output="screen">
     <param name="video_device" value="$(arg video_device)" />
 
     <param name="camera_name" value="$(arg camera_frame_id)" />
@@ -30,10 +31,11 @@
     <param name="autofocus" value="$(arg autofocus)"/>
     <param name="focus" value="$(arg focus)"/>
     <param name="autoexposure" value="$(arg autoexposure)" />
+    <param name="exposure" value="$(arg exposure)" />
     
     <param name="image_width" value="$(arg image_width)" />
     <param name="image_height" value="$(arg image_height)" />
-    <param name="frame_rate" value="$(arg frame_rate)" />
+    <param name="framerate" value="$(arg frame_rate)" />
     
     <param name="brightness" value="$(arg brightness)" />
     <param name="contrast" value="$(arg contrast)" />
@@ -47,7 +49,7 @@
     <param name="pixel_format" value="yuyv" />
   </node>
   
-  <node ns="$(arg node_name)" name="$(arg node_name)_proc" pkg="image_proc" type="image_proc"/>
+  <node if="$(arg image_proc)" ns="$(arg node_name)" name="$(arg node_name)_proc" pkg="image_proc" type="image_proc"/>
   
   <node if="$(arg image_view)" pkg="image_view" name="$(arg node_name)_view" type="image_view">
     <remap from="image" to="/$(arg node_name)/image_raw"/>

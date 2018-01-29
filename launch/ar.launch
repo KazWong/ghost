@@ -1,5 +1,6 @@
 <launch>
   <arg name="bundle" default="true"/>
+  <arg name="node_name" default="ar_track_alvar"/>
   
   <arg name="marker_size" default="9.0" />
   <arg name="max_new_marker_error" default="0.04" />
@@ -10,7 +11,7 @@
   
   <arg name="bundle_files" default="" />
 
-  <node if="$(arg bundle)" name="ar_track_alvar" pkg="ar_track_alvar" 
+  <node if="$(arg bundle)" name="$(arg node_name)" pkg="ar_track_alvar" 
         type="findMarkerBundlesNoKinect" 
         respawn="false" output="screen" args="$(arg marker_size) 
                                               $(arg max_new_marker_error) 
@@ -21,7 +22,7 @@
                                               $(arg bundle_files)">
   </node>
   
-  <node unless="$(arg bundle)" name="ar_track_alvar" pkg="ar_track_alvar" 
+  <node unless="$(arg bundle)" name="$(arg node_name)" pkg="ar_track_alvar" 
         type="individualMarkersNoKinect" 
         respawn="false" output="screen" args="$(arg marker_size) 
                                               $(arg max_new_marker_error) 
