@@ -1,7 +1,6 @@
 <launch>
   <arg name="sim" default="false"/>
   <arg name="joint_pub" default="false"/>
-  <arg name="model"/>
 
   <!-- Setting gui parameter to true for display joint slider -->
   <node if="$(arg joint_pub)" name="joint_state_publisher" pkg="joint_state_publisher"
