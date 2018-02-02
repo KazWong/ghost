@@ -1,4 +1,5 @@
 <launch>
+  <arg name="output" default="log"/>
   <arg name="sim" default="false"/>
   <arg name="ur_ip" default="0.0.0.0"/>
 
@@ -23,7 +24,7 @@
 
   <!-- Trajectory Service -->
   <node pkg="simple_trajectory" name="simple_trajectory_srv" type="simple_trajectory_srv"           
-        output="screen" >
+        output="$(arg output)" >
     <rosparam unless="$(arg sim)" file="$(find simple_trajectory)/param/q1.yaml" command="load"/>
     <rosparam unless="$(arg sim)" file="$(find simple_trajectory)/param/q2.yaml" command="load"/>
     <rosparam unless="$(arg sim)" file="$(find simple_trajectory)/param/q3.yaml" command="load"/>
@@ -37,17 +38,17 @@
 
 
   <node pkg="simple_trajectory" name="simple_trajectory_srv_ik" 
-        type="simple_trajectory_srv_ik" output="screen">
+        type="simple_trajectory_srv_ik" output="$(arg output)">
     <remap if="$(arg sim)" from="follow_joint_trajectory" 
            to="arm_controller/follow_joint_trajectory"/>
   </node>
   <node pkg="simple_trajectory" name="simple_trajectory_srv_joint" 
-        type="simple_trajectory_srv_joint"  output="screen">
+        type="simple_trajectory_srv_joint"  output="$(arg output)">
     <remap if="$(arg sim)" from="follow_joint_trajectory" 
            to="arm_controller/follow_joint_trajectory"/>
   </node>
   <node pkg="simple_trajectory" name="simple_trajectory_srv_abs" 
-        type="simple_trajectory_srv_abs" output="screen">
+        type="simple_trajectory_srv_abs" output="$(arg output)">
     <remap if="$(arg sim)" from="follow_joint_trajectory" 
            to="arm_controller/follow_joint_trajectory"/>
   </node>
