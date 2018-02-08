@@ -6,6 +6,7 @@
   <arg name="autofocus" default="fault"/>
   <arg name="focus" default="-1"/>
   <arg name="autoexposure" default="false" />
+  <arg name="pixel_format" default="mjpeg" />
   <arg name="exposure" default="100" />
   
   <arg name="image_width" default="1280" />
@@ -46,7 +47,7 @@
     <remap from="image" to="$(arg remap)"/>
     
     <param name="io_method" value="mmap"/>
-    <param name="pixel_format" value="yuyv" />
+    <param name="pixel_format" value="$(arg pixel_format)" />
   </node>
   
   <node if="$(arg image_proc)" ns="$(arg node_name)" name="$(arg node_name)_proc" pkg="image_proc" type="image_proc"/>
