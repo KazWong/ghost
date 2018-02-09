@@ -18,7 +18,7 @@
   <rosparam if="$(arg sim)" file="$(find ur_gazebo)/controller/arm_controller_ur5.yaml"
             command="load"/>
   <node if="$(arg sim)" pkg="controller_manager" name="arm_controller_spawner"
-        type="controller_manager" args="spawn arm_controller" respawn="false" output="screen"/>
+        type="controller_manager" args="spawn arm_controller" respawn="false" output="$(arg output)"/>
   <node if="$(arg sim)" pkg="sim_setup" name="fake_ur_driver" type="fake_ur_driver"/>
   <node if="$(arg sim)" pkg="sim_setup" name="fake_io_broadcaster" type="fake_io_broadcaster"/>
 

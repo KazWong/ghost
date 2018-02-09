@@ -1,4 +1,5 @@
 <launch>
+  output="$(arg output)"
   <arg name="bundle" default="true"/>
   <arg name="node_name" default="ar_track_alvar"/>
   
@@ -13,22 +14,22 @@
 
   <node if="$(arg bundle)" name="$(arg node_name)" pkg="ar_track_alvar" 
         type="findMarkerBundlesNoKinect" 
-        respawn="false" output="screen" args="$(arg marker_size) 
-                                              $(arg max_new_marker_error) 
-                                              $(arg max_track_error) 
-                                              $(arg cam_image_topic) 
-                                              $(arg cam_info_topic) 
-                                              $(arg output_frame) 
-                                              $(arg bundle_files)">
+        respawn="false" output="$(arg output)" args="$(arg marker_size) 
+                                                     $(arg max_new_marker_error) 
+                                                     $(arg max_track_error) 
+                                                     $(arg cam_image_topic) 
+                                                     $(arg cam_info_topic) 
+                                                     $(arg output_frame) 
+                                                     $(arg bundle_files)">
   </node>
   
   <node unless="$(arg bundle)" name="$(arg node_name)" pkg="ar_track_alvar" 
         type="individualMarkersNoKinect" 
-        respawn="false" output="screen" args="$(arg marker_size) 
-                                              $(arg max_new_marker_error) 
-                                              $(arg max_track_error) 
-                                              $(arg cam_image_topic) 
-                                              $(arg cam_info_topic) 
-                                              $(arg output_frame)">
+        respawn="false" output="$(arg output)" args="$(arg marker_size) 
+                                                     $(arg max_new_marker_error) 
+                                                     $(arg max_track_error) 
+                                                     $(arg cam_image_topic) 
+                                                     $(arg cam_info_topic) 
+                                                     $(arg output_frame)">
   </node>
 </launch>
