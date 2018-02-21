@@ -12,6 +12,7 @@
   <arg name="initial_pose_a" default="0.0"/>
   <arg name="map_file" default=""/>
   <arg name="ur_ip" default="0.0.0.0"/>
+  <arg name="sweep" default="false" />
   <arg name="sick_ip" default="0.0.0.0" />
   <arg name="driver" default="imc"/>
   <arg name="keyboard" default="false"/>
@@ -41,6 +42,7 @@
     <!-- Lidar -->
     <include if="$(arg lidar)" file="$(find boot)/launch/lidar.launch">
       <arg name="sick_ip" value="$(arg sick_ip)"/>
+      <arg name="sweep" default="$(arg sweep)" />
     </include>
 
     <!-- Navigation -->
