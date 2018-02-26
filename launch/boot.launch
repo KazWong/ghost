@@ -17,6 +17,7 @@
   <arg name="driver" default="imc"/>
   <arg name="keyboard" default="false"/>
   <arg name="joystick" default="true"/>
+  <arg name="joystick_autorepeat_rate" default="20"/>
 
   <!-- <group ns="$(arg ns)"> -->
     <!-- Robot TF -->
@@ -37,6 +38,7 @@
       <arg name="driver" value="$(arg driver)"/>
       <arg name="keyboard" value="$(arg keyboard)"/>
       <arg name="joystick" value="$(arg joystick)"/>
+      <arg name="autorepeat_rate" value="$(arg joystick_autorepeat_rate)"/>
     </include>
     
     <!-- Lidar -->
