@@ -18,18 +18,21 @@
   <arg name="keyboard" default="false"/>
   <arg name="joystick" default="true"/>
   <arg name="joystick_autorepeat_rate" default="20"/>
+  <arg name="joint_pub" default="false"/>
 
   <!-- <group ns="$(arg ns)"> -->
     <!-- Robot TF -->
     <include if="$(arg tf)" file="$(find boot)/launch/tf.launch">
       <arg name="sim" value="$(arg sim)"/>
       <arg name="ns" value="$(arg ns)"/>
+      <arg name="joint_pub" value="$(arg joint_pub)"/>
     </include>
 
     <!-- ur5 -->
     <include if="$(arg ur5)" file="$(find boot)/launch/ur5.launch">
       <arg name="sim" value="$(arg sim)"/>
       <arg name="ur_ip" value="$(arg ur_ip)"/>
+      <arg name="joint_pub" value="$(arg joint_pub)"/>
     </include>
     
     <!-- agv -->
