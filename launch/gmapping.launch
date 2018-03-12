@@ -45,5 +45,5 @@
     <remap from="scan" to="$(arg scan_topic)"/>
   </node>
 
-  <include file="$(find navigation_param)/includes/move_base.launch.xml"/>
+  <include file="$(find navigation_param)/includes/move_base.launch"/>
 </launch>
