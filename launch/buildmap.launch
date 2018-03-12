@@ -1,25 +1,28 @@
 <launch>
   <arg name="sim" default="false"/>
   <arg name="sick_ip" default="0.0.0.0" />
+  <arg name="sweep" default="false" />
   
-  <arg name="driver" default="imc"/>
-  <arg name="keyboard" default="false"/>
-  <arg name="joystick" default="true"/>
+  <arg name="driver" default="accelnet"/>
+  <arg name="keyboard" default="true"/>
+  <arg name="joystick" default="false"/>
 
-  <!-- Mapping -->
+  <!-- GMapping -->
   <include file="$(find boot)/launch/gmapping.launch"></include>
 
   <!-- agv -->
   <include if="$(arg agv)" file="$(find boot)/launch/agv.launch">
-    <arg name="sim" default="$(arg sim)"/>
-    <arg name="driver" default="$(arg driver)"/>
-    <arg name="keyboard" default="$(arg keyboard)"/>
-    <arg name="joystick" default="$(arg joystick)"/>
+    <arg name="sim" value="$(arg sim)"/>
+    <arg name="driver" value="$(arg driver)"/>
+    <arg name="keyboard" value="$(arg keyboard)"/>
+    <arg name="joystick" value="$(arg joystick)"/>
+    <arg name="autorepeat_rate" value="$(arg joystick_autorepeat_rate)"/>
   </include>
 
   <!-- Lidar -->
-  <include unless="$(arg sim)" file="$(find boot)/launch/lidar.launch">
-    <arg name="sick_ip" default="$(arg sick_ip)" />
+  <include if="$(arg lidar)" file="$(find boot)/launch/lidar.launch">
+    <arg name="sick_ip" value="$(arg sick_ip)"/>
+    <arg name="sweep" default="$(arg sweep)" />
   </include>
 
 </launch>
