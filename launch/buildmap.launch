@@ -6,12 +6,13 @@
   <arg name="driver" default="accelnet"/>
   <arg name="keyboard" default="true"/>
   <arg name="joystick" default="false"/>
+  <arg name="joystick_autorepeat_rate" value="12"/>
 
   <!-- GMapping -->
   <include file="$(find boot)/launch/gmapping.launch"></include>
 
   <!-- agv -->
-  <include if="$(arg agv)" file="$(find boot)/launch/agv.launch">
+  <include file="$(find boot)/launch/agv.launch">
     <arg name="sim" value="$(arg sim)"/>
     <arg name="driver" value="$(arg driver)"/>
     <arg name="keyboard" value="$(arg keyboard)"/>
@@ -20,9 +21,9 @@
   </include>
 
   <!-- Lidar -->
-  <include if="$(arg lidar)" file="$(find boot)/launch/lidar.launch">
+  <include file="$(find boot)/launch/lidar.launch">
     <arg name="sick_ip" value="$(arg sick_ip)"/>
-    <arg name="sweep" default="$(arg sweep)" />
+    <arg name="sweep" value="$(arg sweep)" />
   </include>
 
 </launch>
