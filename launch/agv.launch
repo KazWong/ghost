@@ -10,7 +10,8 @@
   <arg name="config_filepath" default="$(find teleop_twist_joy)/config/$(arg joy_config).config.yaml" />
 
   <!-- Cartmove -->
-  <node unless="$(arg sim)" pkg="cartmove" type="cart" name="cart_sub" output="$(arg output)"/>
+  <node unless="$(arg sim)" pkg="cartmove" type="cart" name="cart_sub" 
+        required="true" output="$(arg output)"/>
 
   <!-- joystick -->
   <node if="$(arg joystick)" pkg="joy" type="joy_node" name="joy_node" output="$(arg output)">
@@ -26,6 +27,6 @@
   <node if="$(arg keyboard)" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="keyboard" output="$(arg output)"/>
 
   <!-- Odometry -->
-  <node unless="$(arg sim)" pkg="odometry" name="odometry" type="odometry_node" respawn="true" 
-        output="$(arg output)"/>
+  <node unless="$(arg sim)" pkg="odometry" name="odometry" type="odometry_node"
+        output="$(arg output)" required="true"/>
 </launch>
