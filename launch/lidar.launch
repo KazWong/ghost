@@ -28,6 +28,6 @@
     <arg name="_angle_increment" value="$(eval 360 / arg('sample_rate') / 180 * 3.14)"/>
     <arg name="_range_min" value="$(arg range_min)"/>
     <arg name="_range_max" value="$(arg range_max)"/>
-    <arg name="scan_time" value="$(arg 1 / arg('rotation_speed'))"/>
+    <arg name="scan_time" value="$(eval 1 / arg('rotation_speed'))"/>
   </include>
 </launch>
