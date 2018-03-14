@@ -13,7 +13,6 @@
   <arg name="range_min" default="0.0"/>
   <arg name="range_max" default="40.0"/>
   
-  <arg name="driver" default="accelnet"/>
   <arg name="keyboard" default="false"/>
   <arg name="joystick" default="false"/>
   <arg name="joystick_autorepeat_rate" default="12"/>
@@ -31,7 +30,6 @@
   <!-- agv -->
   <include file="$(find boot)/launch/agv.launch">
     <arg name="sim" value="$(arg sim)"/>
-    <arg name="driver" value="$(arg driver)"/>
     <arg name="keyboard" value="$(arg keyboard)"/>
     <arg name="joystick" value="$(arg joystick)"/>
     <arg name="autorepeat_rate" value="$(arg joystick_autorepeat_rate)"/>

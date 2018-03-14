@@ -12,14 +12,24 @@
   <arg name="initial_pose_a" default="0.0"/>
   <arg name="map_file" default=""/>
   <arg name="ur_ip" default="0.0.0.0"/>
-  <arg name="sweep" default="false" />
   <arg name="sick_ip" default="0.0.0.0" />
-  <arg name="driver" default="imc"/>
   <arg name="keyboard" default="false"/>
   <arg name="joystick" default="false"/>
   <arg name="joy_dev" default="/dev/input/js0" />
   <arg name="joystick_autorepeat_rate" default="20"/>
   <arg name="joint_pub" default="false"/>
+  
+  <arg name="sweep" default="false" />
+  <arg name="sweep_port" default="/dev/ttyUSB0"/>
+  
+  <arg name="rotation_speed" default="5"/>
+  <arg name="sample_rate" default="1000"/>
+  
+  <arg name="angle_min" default="-3.14"/>
+  <arg name="angle_max" default="3.14"/>
+  <arg name="angle_increment" default="0.001"/>
+  <arg name="range_min" default="0.0"/>
+  <arg name="range_max" default="40.0"/>
 
   <!-- <group ns="$(arg ns)"> -->
     <!-- Robot TF -->
@@ -39,7 +49,6 @@
     <!-- agv -->
     <include if="$(arg agv)" file="$(find boot)/launch/agv.launch">
       <arg name="sim" value="$(arg sim)"/>
-      <arg name="driver" value="$(arg driver)"/>
       <arg name="keyboard" value="$(arg keyboard)"/>
       <arg name="joystick" value="$(arg joystick)"/>
       <arg name="joy_dev" default="$(arg joy_dev)" />
@@ -47,9 +56,19 @@
     </include>
     
     <!-- Lidar -->
-    <include if="$(arg lidar)" file="$(find boot)/launch/lidar.launch">
+    <include file="$(find boot)/launch/lidar.launch">
       <arg name="sick_ip" value="$(arg sick_ip)"/>
-      <arg name="sweep" default="$(arg sweep)" />
+      <arg name="sweep_port" value="$(arg sweep_port)"/>
+      <arg name="sweep" value="$(arg sweep)" />
+    
+      <arg name="rotation_speed" value="$(arg rotation_speed)"/>
+      <arg name="sample_rate" value="$(arg sample_rate)"/>
+  
+      <arg name="angle_min" value="$(arg angle_min)"/>
+      <arg name="angle_max" value="$(arg angle_max)"/>
+      <arg name="angle_increment" value="$(arg angle_increment)"/>
+      <arg name="range_min" value="$(arg range_min)"/>
+      <arg name="range_max" value="$(arg range_max)"/>
     </include>
 
     <!-- Navigation -->
