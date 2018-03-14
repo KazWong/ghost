@@ -1,12 +1,29 @@
 <launch>
   <arg name="sim" default="false"/>
   <arg name="sick_ip" default="0.0.0.0" />
+  <arg name="sweep_port" default=""/>
   <arg name="sweep" default="false" />
   
+  <arg name="rotation_speed" default="5"/>
+  <arg name="sample_rate" default="1000"/>
+  
+  <arg name="angle_min" default="-3.14"/>
+  <arg name="angle_max" default="3.14"/>
+  <arg name="angle_increment" default="0.001"/>
+  <arg name="range_min" default="0.0"/>
+  <arg name="range_max" default="40.0"/>
+  
   <arg name="driver" default="accelnet"/>
-  <arg name="keyboard" default="true"/>
+  <arg name="keyboard" default="false"/>
   <arg name="joystick" default="false"/>
   <arg name="joystick_autorepeat_rate" value="12"/>
+  
+  <arg name="lidar_x" default="0.000"/>
+  <arg name="lidar_y" default="0.000"/>
+  <arg name="lidar_z" default="0.000"/>
+  <arg name="lidar_yaw" default="0.000"/>
+  <arg name="lidar_pitch" default="0.000"/>
+  <arg name="lidar_roll" default="0.000"/>
 
   <!-- GMapping -->
   <include file="$(find boot)/launch/gmapping.launch"></include>
@@ -23,7 +40,26 @@
   <!-- Lidar -->
   <include file="$(find boot)/launch/lidar.launch">
     <arg name="sick_ip" value="$(arg sick_ip)"/>
+    <arg name="sweep_port" value="$(arg sweep_port)"/>
     <arg name="sweep" value="$(arg sweep)" />
+    
+    <arg name="rotation_speed" value="$(arg rotation_speed)"/>
+    <arg name="sample_rate" value="$(arg sample_rate)"/>
+  
+    <arg name="angle_min" value="$(arg angle_min)"/>
+    <arg name="angle_max" value="$(arg angle_max)"/>
+    <arg name="angle_increment" value="$(arg angle_increment)"/>
+    <arg name="range_min" value="$(arg range_min)"/>
+    <arg name="range_max" value="$(arg range_max)"/>
   </include>
 
+  <!--Lidar TF -->
+  <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" 
+        args="$(arg lidar_x) 
+              $(arg lidar_y) 
+              $(arg lidar_z) 
+              $(arg lidar_yaw) 
+              $(arg lidar_pitch) 
+              $(arg lidar_roll) 
+              base_footprint base_laser 33" />
 </launch>

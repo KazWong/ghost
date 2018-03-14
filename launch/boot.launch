@@ -1,11 +1,11 @@
 <launch>
   <arg name="ns" default=""/>
   <arg name="sim" default="false"/>
-  <arg name="tf" default="true"/>
-  <arg name="ur5" default="true"/>
-  <arg name="agv" default="true"/>
-  <arg name="amcl" default="true"/>
-  <arg name="lidar" default="true"/>
+  <arg name="tf" default="false"/>
+  <arg name="ur5" default="false"/>
+  <arg name="agv" default="false"/>
+  <arg name="amcl" default="false"/>
+  <arg name="lidar" default="false"/>
 
   <arg name="initial_pose_x" default="0.0"/>
   <arg name="initial_pose_y" default="0.0"/>
@@ -16,7 +16,8 @@
   <arg name="sick_ip" default="0.0.0.0" />
   <arg name="driver" default="imc"/>
   <arg name="keyboard" default="false"/>
-  <arg name="joystick" default="true"/>
+  <arg name="joystick" default="false"/>
+  <arg name="joy_dev" default="/dev/input/js0" />
   <arg name="joystick_autorepeat_rate" default="20"/>
   <arg name="joint_pub" default="false"/>
 
@@ -41,6 +42,7 @@
       <arg name="driver" value="$(arg driver)"/>
       <arg name="keyboard" value="$(arg keyboard)"/>
       <arg name="joystick" value="$(arg joystick)"/>
+      <arg name="joy_dev" default="$(arg joy_dev)" />
       <arg name="autorepeat_rate" value="$(arg joystick_autorepeat_rate)"/>
     </include>
     
