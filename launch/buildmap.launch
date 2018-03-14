@@ -16,7 +16,7 @@
   <arg name="driver" default="accelnet"/>
   <arg name="keyboard" default="false"/>
   <arg name="joystick" default="false"/>
-  <arg name="joystick_autorepeat_rate" value="12"/>
+  <arg name="joystick_autorepeat_rate" default="12"/>
   
   <arg name="lidar_x" default="0.000"/>
   <arg name="lidar_y" default="0.000"/>
