@@ -27,7 +27,6 @@
   
   <arg name="angle_min" default="-3.14"/>
   <arg name="angle_max" default="3.14"/>
-  <arg name="angle_increment" default="0.001"/>
   <arg name="range_min" default="0.0"/>
   <arg name="range_max" default="40.0"/>
 
@@ -66,7 +65,6 @@
   
       <arg name="angle_min" value="$(arg angle_min)"/>
       <arg name="angle_max" value="$(arg angle_max)"/>
-      <arg name="angle_increment" value="$(arg angle_increment)"/>
       <arg name="range_min" value="$(arg range_min)"/>
       <arg name="range_max" value="$(arg range_max)"/>
     </include>

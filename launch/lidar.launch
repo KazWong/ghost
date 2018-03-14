@@ -4,14 +4,13 @@
   <arg name="sick_ip" default="0.0.0.0" />
   <arg name="sweep_port" default=""/>
   
-  <arg name="rotation_speed" default="5"/>
-  <arg name="sample_rate" default="1000"/>
+  <arg name="rotation_speed"/>
+  <arg name="sample_rate"/>
   
-  <arg name="angle_min" default="-3.14"/>
-  <arg name="angle_max" default="3.14"/>
-  <arg name="angle_increment" default="0.001"/>
-  <arg name="range_min" default="0.0"/>
-  <arg name="range_max" default="40.0"/>
+  <arg name="angle_min"/>
+  <arg name="angle_max"/>
+  <arg name="range_min"/>
+  <arg name="range_max"/>
   
   <node unless="$(arg sweep)" pkg="lms1xx" name="lms1xx" type="LMS1xx_node">
     <param name="host" value="$(arg sick_ip)" />
@@ -26,8 +25,9 @@
   
     <arg name="_angle_min" value="$(arg angle_min)"/>
     <arg name="_angle_max" value="$(arg angle_max)"/>
-    <arg name="_angle_increment" value="$(arg angle_increment)"/>
+    <arg name="_angle_increment" value="$(eval 360 / arg('sample_rate') / 180 * 3.14)"/>
     <arg name="_range_min" value="$(arg range_min)"/>
     <arg name="_range_max" value="$(arg range_max)"/>
+    <arg name="scan_time" value="$(arg 1 / arg('rotation_speed'))"/>
   </include>
 </launch>
