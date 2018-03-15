@@ -58,4 +58,8 @@
               $(arg lidar_pitch) 
               $(arg lidar_roll) 
               base_footprint base_laser 33" />
+  
+  <!-- SLAM Log -->
+  <node pkg="rosbag" type="record" name="SLAM_log"
+       args="record -o /tmp/slam_log /base_footprint /base_laser /odom /map /scan" />
 </launch>
