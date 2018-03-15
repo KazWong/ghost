@@ -25,7 +25,7 @@
   
     <arg name="_angle_min" value="$(arg angle_min)"/>
     <arg name="_angle_max" value="$(arg angle_max)"/>
-    <arg name="_angle_increment" value="$(eval 1000.0 / arg('sample_rate') )"/>
+    <arg name="_angle_increment" value="$(eval 500.0 / arg('sample_rate') )"/>
     <arg name="_range_min" value="$(arg range_min)"/>
     <arg name="_range_max" value="$(arg range_max)"/>
     <arg name="_scan_time" value="$(eval 1.0 / arg('rotation_speed'))"/>
