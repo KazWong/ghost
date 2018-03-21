@@ -77,6 +77,62 @@
       <arg name="map_file" value="$(arg map_file)"/>
     </include>
     
-    
+    <node pkg="rosbag" type="record" name="log"
+        args="record --split --duration=10m --max-splits 12 -o /tmp/log 
+        /tf
+        /tf_static 
+        /scan
+        /amcl/parameter_descriptions
+        /amcl/parameter_updates
+        /amcl_pose
+        /cmd_pos
+        /cmd_vel
+        /encoder
+        /feedback_wheelspd
+        /initialpose
+        /joint_states
+        /map
+        /map_metadata
+        /mobile_base/sensors/bumper_pointcloud
+        /move_base/EBandPlannerROS/eband_visualization
+        /move_base/EBandPlannerROS/eband_visualization_array
+        /move_base/EBandPlannerROS/global_plan
+        /move_base/EBandPlannerROS/local_plan
+        /move_base/EBandPlannerROS/parameter_descriptions
+        /move_base/EBandPlannerROS/parameter_updates
+        /move_base/NavfnROS/plan
+        /move_base/cancel
+        /move_base/current_goal
+        /move_base/feedback
+        /move_base/global_costmap/costmap
+        /move_base/global_costmap/costmap_updates
+        /move_base/global_costmap/footprint
+        /move_base/global_costmap/inflation_layer/parameter_descriptions
+        /move_base/global_costmap/inflation_layer/parameter_updates
+        /move_base/global_costmap/obstacle_layer/parameter_descriptions
+        /move_base/global_costmap/obstacle_layer/parameter_updates
+        /move_base/global_costmap/parameter_descriptions
+        /move_base/global_costmap/parameter_updates
+        /move_base/global_costmap/static_layer/parameter_descriptions
+        /move_base/global_costmap/static_layer/parameter_updates
+        /move_base/goal
+        /move_base/local_costmap/costmap
+        /move_base/local_costmap/costmap_updates
+        /move_base/local_costmap/footprint
+        /move_base/local_costmap/inflation_layer/parameter_descriptions
+        /move_base/local_costmap/inflation_layer/parameter_updates
+        /move_base/local_costmap/obstacle_layer/parameter_descriptions
+        /move_base/local_costmap/obstacle_layer/parameter_updates
+        /move_base/local_costmap/parameter_descriptions
+        /move_base/local_costmap/parameter_updates
+        /move_base/parameter_descriptions
+        /move_base/parameter_updates
+        /move_base/result
+        /move_base/status
+        /move_base_simple/goal
+        /odom
+        /particlecloud
+        /pc2
+        /record" />
   <!-- </group> -->
 </launch>
