@@ -61,5 +61,5 @@
   
   <!-- SLAM Log -->
   <node pkg="rosbag" type="record" name="SLAM_log"
-        args="record -o /tmp/slam_log /tf /scan" />
+        args="record -o /tmp/slam_log /tf /scan /odom" />
 </launch>

@@ -6,6 +6,7 @@
   <arg name="agv" default="false"/>
   <arg name="amcl" default="false"/>
   <arg name="lidar" default="false"/>
+  <arg name="rosbag" default="true"/>
 
   <arg name="initial_pose_x" default="0.0"/>
   <arg name="initial_pose_y" default="0.0"/>
@@ -32,6 +33,7 @@
   
   <arg name="duration" default="10m"/>
   <arg name="split" default="12"/>
+  <arg name="log_path" default="/tmp/log"/>
 
   <!-- <group ns="$(arg ns)"> -->
     <!-- Robot TF -->
@@ -80,8 +82,9 @@
       <arg name="map_file" value="$(arg map_file)"/>
     </include>
     
-    <node pkg="rosbag" type="record" name="log"
-        args="record --split --duration=$(arg duration) --max-splits $(arg split) -o /tmp/log 
+    <!-- rosbag -->
+    <node if="$(arg rosbag)" pkg="rosbag" type="record" name="log"
+        args="record --split --duration=$(arg duration) --max-splits $(arg split) -o $(arg log_path) 
         /tf
         /tf_static 
         /scan
