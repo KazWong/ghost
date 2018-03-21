@@ -29,6 +29,9 @@
   <arg name="angle_max" default="3.14"/>
   <arg name="range_min" default="0.0"/>
   <arg name="range_max" default="40.0"/>
+  
+  <arg name="duration" default="10m"/>
+  <arg name="split" default="12"/>
 
   <!-- <group ns="$(arg ns)"> -->
     <!-- Robot TF -->
@@ -78,7 +81,7 @@
     </include>
     
     <node pkg="rosbag" type="record" name="log"
-        args="record --split --duration=10m --max-splits 12 -o /tmp/log 
+        args="record --split --duration=$(arg duration) --max-splits $(arg split) -o /tmp/log 
         /tf
         /tf_static 
         /scan
