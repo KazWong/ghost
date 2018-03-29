@@ -49,7 +49,7 @@
     <arg name="range_max" value="$(arg range_max)"/>
   </include>
 
-  <!--Lidar TF -->
+  <!--base_laser TF -->
   <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" 
         args="$(arg lidar_x) 
               $(arg lidar_y) 
