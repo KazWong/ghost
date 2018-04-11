@@ -60,7 +60,7 @@
     </include>
     
     <!-- Lidar -->
-    <include file="$(find boot)/launch/lidar.launch">
+    <include if="$(arg lidar)" file="$(find boot)/launch/lidar.launch">
       <arg name="sick_ip" value="$(arg sick_ip)"/>
       <arg name="sweep_port" value="$(arg sweep_port)"/>
       <arg name="sweep" value="$(arg sweep)" />
