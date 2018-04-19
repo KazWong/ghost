@@ -14,7 +14,7 @@
   </include>
 
   <include file="$(find navigation_param)/launch/move_base.launch"/>
-  <include file="$(find navigation_param)/launch/load_costmap_params.launch"/>
+  <!-- <include file="$(find navigation_param)/launch/dynamic_reconfig.launch"/> -->
 
   <!-- Load Map -->
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" output="$(arg output)"/>
