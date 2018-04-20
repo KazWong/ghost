@@ -17,7 +17,7 @@
     <param name="frame_id" value="base_laser" />
   </node>
   
-  <include if="$(arg sweep)" file="$(find boot)/sweep_ros/sweep2scan.launch">
+  <include if="$(arg sweep)" file="$(find boot)/sweep_ros/sweep_arg.launch">
     <arg name="sweep_port" value="$(arg sweep_port)"/>
   
     <arg name="_rotation_speed" value="$(arg rotation_speed)"/>
