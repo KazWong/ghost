@@ -2,6 +2,9 @@
   <arg name="ns" default=""/>
   <arg name="sim" default="false"/>
   <arg name="joint_pub" default="false"/>
+  <arg name="shift_x" default="0.0"/>
+  <arg name="shift_y" default="0.0"/>
+  <arg name="shift_z" default="0.0"/>
 
   <!-- Setting gui parameter to true for display joint slider -->
   <node if="$(arg joint_pub)" name="joint_state_publisher" pkg="joint_state_publisher"
@@ -22,5 +25,6 @@
   </node>
 
   <node if="$(arg sim)" name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false"
-        output="screen" args="-urdf -model r2d2 -param robot_description -x 0 "/> 
+        output="screen" args="-urdf -model r2d2 -param robot_description 
+        -x $(arg shift_x) -y $(arg shift_y) -z $(arg shift_z) "/> 
 </launch>

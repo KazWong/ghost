@@ -1,6 +1,7 @@
 <launch>
   <arg name="ns" default=""/>
   <arg name="sim" default="false"/>
+  <arg name="tf" default="false"/>
   <arg name="sick_ip" default="0.0.0.0" />
   <arg name="sweep_port" default=""/>
   <arg name="sweep" default="false" />
@@ -51,7 +52,7 @@
   </include>
   
   <!-- Robot TF -->
-  <include if="$(arg sim)" file="$(find boot)/launch/tf.launch">
+  <include if="$(arg tf)" file="$(find boot)/launch/tf.launch">
     <arg name="sim" value="$(arg sim)"/>
     <arg name="ns" value="$(arg ns)"/>
     <arg name="joint_pub" value="false"/>
