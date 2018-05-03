@@ -6,7 +6,7 @@
   <arg name="agv" default="false"/>
   <arg name="amcl" default="false"/>
   <arg name="lidar" default="false"/>
-  <arg name="rosbag" default="true"/>
+  <arg name="rosbag" default="false"/>
 
   <arg name="initial_pose_x" default="0.0"/>
   <arg name="initial_pose_y" default="0.0"/>
@@ -47,7 +47,7 @@
     <include if="$(arg ur5)" file="$(find boot)/launch/ur5.launch">
       <arg name="sim" value="$(arg sim)"/>
       <arg name="ur_ip" value="$(arg ur_ip)"/>
-      <arg name="joint_pub" value="$(arg joint_pub)"/>
+      <!-- <arg name="joint_pub" value="$(arg joint_pub)"/> -->
     </include>
     
     <!-- agv -->
