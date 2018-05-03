@@ -14,6 +14,7 @@
   <arg name="map_file" default=""/>
   <arg name="ur_ip" default="0.0.0.0"/>
   <arg name="sick_ip" default="0.0.0.0" />
+  <arg name="driver" default="imc"/>
   <arg name="keyboard" default="false"/>
   <arg name="joystick" default="false"/>
   <arg name="joy_dev" default="/dev/input/js0" />
@@ -28,7 +29,7 @@
   
   <arg name="angle_min" default="-3.14"/>
   <arg name="angle_max" default="3.14"/>
-  <arg name="range_min" default="0.0"/>
+  <arg name="range_min" default="0.01"/>
   <arg name="range_max" default="40.0"/>
   
   <arg name="duration" default="10m"/>
@@ -53,6 +54,7 @@
     <!-- agv -->
     <include if="$(arg agv)" file="$(find boot)/launch/agv.launch">
       <arg name="sim" value="$(arg sim)"/>
+      <arg name="driver" value="$(arg driver)"/>
       <arg name="keyboard" value="$(arg keyboard)"/>
       <arg name="joystick" value="$(arg joystick)"/>
       <arg name="joy_dev" default="$(arg joy_dev)" />
