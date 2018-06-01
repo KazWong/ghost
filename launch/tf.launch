@@ -14,7 +14,7 @@
 
   <!-- Parsing xacro and setting robot_description parameter -->
   <param name="robot_description" 
-         command="$(find xacro)/xacro --inorder '$(find description)/urdf/r2d2.urdf.xacro'" />
+         command="$(find xacro)/xacro --inorder '$(find description)/urdf/r2d2_ur5.urdf.xacro'" />
 
   <!-- Starting robot state publish which will publish tf -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
