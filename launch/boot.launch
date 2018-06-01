@@ -48,7 +48,6 @@
     <include if="$(arg ur5)" file="$(find boot)/launch/ur5.launch">
       <arg name="sim" value="$(arg sim)"/>
       <arg name="ur_ip" value="$(arg ur_ip)"/>
-      <!-- <arg name="joint_pub" value="$(arg joint_pub)"/> -->
     </include>
     
     <!-- agv -->

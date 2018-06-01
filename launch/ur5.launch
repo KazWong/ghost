@@ -2,7 +2,6 @@
   <arg name="output" default="log"/>
   <arg name="sim" default="false"/>
   <arg name="ur_ip" default="0.0.0.0"/>
-  <arg name="joint_pub" default="false"/>
 
   <!-- UR Modern Driver -->
   <include unless="$(arg sim)" file="$(find ur_modern_driver)/launch/ur_common.launch">
@@ -16,23 +15,17 @@
 
   <!-- Simulation Driver -->
   <!-- ur_gazebo/controller_utils.launch -->
-  <!-- ur_gazebo/ur5.launch -->
-  
   <node if="$(arg sim)" pkg="rostopic" type="rostopic" name="fake_joint_calibration"
         args="pub /calibrated std_msgs/Bool true" />
+  <rosparam if="$(arg sim)" file="$(find ur_gazebo)/controller/joint_state_controller.yaml" command="load"/>
+  <node if="$(arg sim)" name="joint_state_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn joint_state_controller" respawn="false" output="screen"/> 
   
-  
-  <!-- <arg name="tmp1" value="$(eval arg('sim') == true)"/>
-  <arg name="tmp2" value="$(eval arg('joint_pub') == false)"/>
-  <rosparam if="$(eval arg('tmp1') == arg('tmp2') == true)" file="$(find ur_gazebo)/controller/joint_state_controller.yaml" command="load"/>
-  <node if="$(eval arg('tmp1') == arg('tmp2') == true)" name="joint_state_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn joint_state_controller" respawn="false" output="screen"/> -->
-  <include if="$(arg sim)" file="$(find ur_gazebo)/launch/controller_utils.launch"/>
-  
-  
+  <!-- ur_gazebo/ur5.launch -->
   <rosparam if="$(arg sim)" file="$(find ur_gazebo)/controller/arm_controller_ur5.yaml"
             command="load"/>
   <node if="$(arg sim)" pkg="controller_manager" name="arm_controller_spawner"
-        type="controller_manager" args="spawn arm_controller" respawn="false" output="$(arg output)"/>
+        type="controller_manager" args="spawn arm_controller" respawn="false" output="$(arg output)"/> 
+   
         
   <node if="$(arg sim)" pkg="sim_setup" name="fake_ur_driver" type="fake_ur_driver"/>
   <node if="$(arg sim)" pkg="sim_setup" name="fake_io_broadcaster" type="fake_io_broadcaster"/>
