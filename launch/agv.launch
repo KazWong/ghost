@@ -4,10 +4,18 @@
   <arg name="driver" default="accelnet"/> <!-- accelnet | imc -->
   <arg name="keyboard" default="false"/>
   <arg name="joystick" default="false"/>
+  <arg name="parking" default="false"/>
   <arg name="autorepeat_rate" default="12"/>
   
   <arg name="joy_dev" default="" />
   <arg name="config_filepath" default="$(find teleop_twist_joy)/config/xbox.config.yaml" />
+  
+  <!-- Parameters -->
+  <rosparam file="$(find description)/param/cartmove.yaml" ns="config"/>
+  <rosparam file="$(find description)/param/can.yaml" ns="config"/>
+  <rosparam file="$(find description)/param/parking.yaml" ns="config"/>
+  <rosparam file="$(find description)/config/xbox.config.yaml" ns="joystick"/>
+  
 
   <!-- Cartmove -->
   <node unless="$(arg sim)" pkg="cartmove" type="$(arg driver)" name="cart_sub" 
@@ -31,4 +39,8 @@
   <!-- Odometry -->
   <node unless="$(arg sim)" pkg="odometry" name="odometry" type="odometry_node"
         output="$(arg output)" required="true"/>
+  
+  <!-- Parking -->
+  <node if="$(arg parking)" pkg="parking" name="parking_server" type="parking_srv" 
+        output="$(arg output)"/>
 </launch>
