@@ -14,7 +14,7 @@
   <rosparam file="$(find description)/param/cartmove.yaml" ns="config"/>
   <rosparam file="$(find description)/param/can.yaml" ns="config"/>
   <rosparam file="$(find description)/param/parking.yaml" ns="config"/>
-  <rosparam file="$(find description)/config/xbox.config.yaml" ns="joystick"/>
+  <rosparam file="$(find description)/param/xbox.config.yaml" ns="joystick"/>
   
 
   <!-- Cartmove -->
