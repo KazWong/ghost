@@ -11,9 +11,9 @@
   <arg name="config_filepath" default="$(find teleop_twist_joy)/config/xbox.config.yaml" />
   
   <!-- Parameters -->
-  <rosparam file="$(find description)/param/cartmove.yaml" ns="config"/>
-  <rosparam file="$(find description)/param/can.yaml" ns="config"/>
-  <rosparam file="$(find description)/param/parking.yaml" ns="config"/>
+  <rosparam file="$(find description)/param/cartmove.yaml" ns="hardware"/>
+  <rosparam file="$(find description)/param/can.yaml" ns="hardware"/>
+  <rosparam file="$(find description)/param/parking.yaml" ns="hardware"/>
   <rosparam file="$(find description)/param/xbox.config.yaml" ns="joystick"/>
   
 
@@ -37,8 +37,8 @@
   <node if="$(arg keyboard)" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="keyboard" output="$(arg output)"/>
 
   <!-- Odometry -->
-  <node unless="$(arg sim)" pkg="odometry" name="odometry" type="odometry_node"
-        output="$(arg output)" required="true"/>
+  <!-- <node unless="$(arg sim)" pkg="odometry" name="odometry" type="odometry_node"
+        output="$(arg output)" required="true"/> -->
   
   <!-- Parking -->
   <node if="$(arg parking)" pkg="parking" name="parking_server" type="parking_srv" 
