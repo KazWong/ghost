@@ -2,6 +2,7 @@
   <arg name="output" default="log"/>
   <arg name="sweep" default="false" />
   <arg name="sick_ip" default="0.0.0.0" />
+  <arg name="range_min" value="0.25"/>
   <arg name="sweep_port" default=""/>
 
   
