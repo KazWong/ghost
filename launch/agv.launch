@@ -12,7 +12,7 @@
   
   <!-- Parameters -->
   <rosparam file="$(find description)/param/cartmove.yaml" ns="hardware"/>
-  <rosparam file="$(find description)/param/can.yaml" ns="hardware"/>
+  <rosparam file="$(find description)/param/hardware.yaml" ns="hardware"/>
   <rosparam file="$(find description)/param/parking.yaml" ns="hardware"/>
   <rosparam file="$(find description)/param/xbox.config.yaml" ns="joystick"/>
   
