@@ -20,8 +20,8 @@
 
 
   <!-- Map Server -->
-  <node name="map_server" pkg="map_server" type="map_server" output="$(arg output)">
-    <args="$(arg map_file)"/>
+  <node name="map_server" pkg="map_server" type="map_server" output="$(arg output)"
+    args="$(arg map_file)">
   </node>
   
   <!-- AMCL -->
