@@ -1,0 +1,43 @@
+<launch>
+  <arg name="output" default="log"/>
+  <arg name="use_map_topic"  default="false"/>
+  <arg name="scan_topic"     default="scan"/>
+  <arg name="initial_pose_x" default="0.0"/>
+  <arg name="initial_pose_y" default="0.0"/>
+  <arg name="initial_pose_a" default="0.0"/>
+  <arg name="map_file" default=""/>
+  
+  <!-- Parameters -->
+  <rosparam file="$(find description)/param/amcl.yaml" ns="amcl"/>
+  <rosparam file="$(find navigation_param)/params/move_base.yaml" ns="move_base" />
+  <rosparam file="$(find navigation_param)/params/global_costmap.yaml" ns="move_base" />
+  <rosparam file="$(find navigation_param)/params/local_costmap.yaml" ns="move_base" />
+  <!-- <rosparam file="$(find navigation_param)/params/navfn.yaml" ns="move_base" /> -->
+  <rosparam file="$(find navigation_param)/params/global_planner.yaml" ns="move_base" />
+  <rosparam file="$(find navigation_param)/params/eband_local_planner.yaml" ns="move_base" />
+  <!--<rosparam file="$(find navigation_param)/params/base_local_planner.yaml" ns="move_base" />
+  <rosparam file="$(find navigation_param)/params/dwa_local_planner.yaml" ns="move_base" />--> 
+
+
+  <!-- Map Server -->
+  <node name="map_server" pkg="map_server" type="map_server" output="$(arg output)">
+    <args="$(arg map_file)"/>
+  </node>
+  
+  <!-- AMCL -->
+  <node pkg="amcl" type="amcl" name="amcl" output="$(arg output)">
+    <param name="use_map_topic"             value="$(arg use_map_topic)"/>
+    <param name="initial_pose_x"            value="$(arg initial_pose_x)"/>
+    <param name="initial_pose_y"            value="$(arg initial_pose_y)"/>
+    <param name="initial_pose_a"            value="$(arg initial_pose_a)"/>
+    <remap from="scan"                      to="$(arg scan_topic)"/>
+  </node>
+
+  <!-- Movebase -->
+  <node pkg="move_base" type="move_base" name="move_base" respawn="false" output="$(arg output)">
+  </node>
+  
+  
+  <!-- <include file="$(find navigation_param)/launch/dynamic_reconfig.launch"/> -->
+</launch>
+

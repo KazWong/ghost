@@ -3,14 +3,7 @@
   <arg name="sweep" default="false" />
   <arg name="sick_ip" default="0.0.0.0" />
   <arg name="sweep_port" default=""/>
-  
-  <arg name="rotation_speed"/>
-  <arg name="sample_rate"/>
-  
-  <arg name="angle_min"/>
-  <arg name="angle_max"/>
-  <arg name="range_min"/>
-  <arg name="range_max"/>
+
   
   <node unless="$(arg sweep)" pkg="lms1xx" name="lms1xx" type="LMS1xx_node">
     <param name="host" value="$(arg sick_ip)" />
@@ -20,15 +13,12 @@
   
   <include if="$(arg sweep)" file="$(find boot)/sweep_ros/sweep_arg.launch">
     <arg name="sweep_port" value="$(arg sweep_port)"/>
-  
-    <arg name="_rotation_speed" value="$(arg rotation_speed)"/>
-    <arg name="_sample_rate" value="$(arg sample_rate)"/>
-  
-    <arg name="_angle_min" value="$(arg angle_min)"/>
-    <arg name="_angle_max" value="$(arg angle_max)"/>
-    <arg name="_angle_increment" value="$(eval 3.1415926 / arg('sample_rate') )"/>
-    <arg name="_range_min" value="$(arg range_min)"/>
-    <arg name="_range_max" value="$(arg range_max)"/>
-    <arg name="_scan_time" value="$(eval 0.1 / arg('rotation_speed'))"/>
   </include>
+  
+  <!-- 
+  <include if="$(arg sweep)" file="$(find boot)/rplidar_ros/rplidar.launch">
+    <arg name="output" value="$(arg output)"/>
+    <arg name="node_name" value="$(arg node_name)"/>
+  </include> 
+  -->
 </launch>

@@ -8,7 +8,7 @@
   <arg name="autorepeat_rate" default="12"/>
   
   <arg name="joy_dev" default="" />
-  <arg name="config_filepath" default="$(find teleop_twist_joy)/config/xbox.config.yaml" />
+  <!-- <arg name="config_filepath" default="$(find teleop_twist_joy)/config/xbox.config.yaml" /> -->
   
   <!-- Parameters -->
   <rosparam file="$(find description)/param/cartmove.yaml" ns="hardware"/>
@@ -30,15 +30,11 @@
     <param name="autorepeat_rate" value="$(arg autorepeat_rate)" />
   </node>
   <node if="$(arg joystick)" pkg="teleop_twist_joy" type="teleop_node" name="joystick">
-    <rosparam command="load" file="$(arg config_filepath)" />
+    <!-- <rosparam command="load" file="$(arg config_filepath)" /> -->
   </node>
 
   <!-- Keyboard -->
   <node if="$(arg keyboard)" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="keyboard" output="$(arg output)"/>
-
-  <!-- Odometry -->
-  <!-- <node unless="$(arg sim)" pkg="odometry" name="odometry" type="odometry_node"
-        output="$(arg output)" required="true"/> -->
   
   <!-- Parking -->
   <node if="$(arg parking)" pkg="parking" name="parking_server" type="parking_srv" 

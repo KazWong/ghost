@@ -4,38 +4,35 @@
   <arg name="tf" default="false"/>
   <arg name="ur5" default="false"/>
   <arg name="agv" default="false"/>
-  <arg name="amcl" default="false"/>
+  <arg name="navigation" default="false"/>
   <arg name="lidar" default="false"/>
   <arg name="rosbag" default="false"/>
 
-  <arg name="initial_pose_x" default="0.0"/>
-  <arg name="initial_pose_y" default="0.0"/>
-  <arg name="initial_pose_a" default="0.0"/>
-  <arg name="map_file" default=""/>
+  <!-- Robot TF -->
+  <arg name="joint_pub" default="false"/>
+  <!-- ur5 -->
   <arg name="ur_ip" default="0.0.0.0"/>
-  <arg name="sick_ip" default="0.0.0.0" />
-  <arg name="driver" default="imc"/>
+  <!-- agv -->
+  <arg name="driver" default="accelnet"/>
   <arg name="keyboard" default="false"/>
   <arg name="joystick" default="false"/>
   <arg name="parking" default="false"/>
   <arg name="joy_dev" default="/dev/input/js0" />
   <arg name="joystick_autorepeat_rate" default="20"/>
-  <arg name="joint_pub" default="false"/>
-  
-  <arg name="sweep" default="false" />
+  <!-- Lidar -->
+  <arg name="sick_ip" default="0.0.0.0" />
   <arg name="sweep_port" default="/dev/ttyUSB0"/>
-  
-  <arg name="rotation_speed" default="5"/>
-  <arg name="sample_rate" default="1000"/>
-  
-  <arg name="angle_min" default="-3.14"/>
-  <arg name="angle_max" default="3.14"/>
-  <arg name="range_min" default="0.01"/>
-  <arg name="range_max" default="40.0"/>
-  
+  <arg name="sweep" default="false" />
+  <!-- Navigation -->
+  <arg name="initial_pose_x" default="0.0"/>
+  <arg name="initial_pose_y" default="0.0"/>
+  <arg name="initial_pose_a" default="0.0"/>
+  <arg name="map_file" default=""/>
+  <!-- rosbag -->
   <arg name="duration" default="10m"/>
   <arg name="split" default="12"/>
   <arg name="log_path" default="/tmp/log"/>
+  
 
   <!-- <group ns="$(arg ns)"> -->
     <!-- Robot TF -->
@@ -45,13 +42,13 @@
       <arg name="joint_pub" value="$(arg joint_pub)"/>
     </include>
 
-    <!-- ur5 -->
+    <!-- UR5 -->
     <include if="$(arg ur5)" file="$(find boot)/launch/ur5.launch">
       <arg name="sim" value="$(arg sim)"/>
       <arg name="ur_ip" value="$(arg ur_ip)"/>
     </include>
     
-    <!-- agv -->
+    <!-- AGV -->
     <include if="$(arg agv)" file="$(find boot)/launch/agv.launch">
       <arg name="sim" value="$(arg sim)"/>
       <arg name="driver" value="$(arg driver)"/>
@@ -67,18 +64,10 @@
       <arg name="sick_ip" value="$(arg sick_ip)"/>
       <arg name="sweep_port" value="$(arg sweep_port)"/>
       <arg name="sweep" value="$(arg sweep)" />
-    
-      <arg name="rotation_speed" value="$(arg rotation_speed)"/>
-      <arg name="sample_rate" value="$(arg sample_rate)"/>
-  
-      <arg name="angle_min" value="$(arg angle_min)"/>
-      <arg name="angle_max" value="$(arg angle_max)"/>
-      <arg name="range_min" value="$(arg range_min)"/>
-      <arg name="range_max" value="$(arg range_max)"/>
     </include>
 
     <!-- Navigation -->
-    <include if="$(arg amcl)" file="$(find boot)/launch/amcl.launch">
+    <include if="$(arg navigation)" file="$(find boot)/launch/navigation.launch">
       <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
       <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
       <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
