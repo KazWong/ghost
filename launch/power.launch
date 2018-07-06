@@ -3,7 +3,7 @@
   <arg name="sim" default="false"/>
   
   <!-- Parameters -->
-  <rosparam file="$(find description)/param/can.yaml" ns="hardware"/>
+  <rosparam file="$(find description)/param/hardware.yaml" ns="hardware"/>
   
 
   <!-- Battery Status -->
