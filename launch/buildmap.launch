@@ -52,6 +52,9 @@
               $(arg lidar_roll) 
               base_footprint base_laser 33" />
   
+  <!-- Movebase -->
+  <include file="$(find navigation_param)/launch/move_base.launch"/>
+  
   <!-- SLAM Log -->
   <node pkg="rosbag" type="record" name="SLAM_log"
         args="record -o /tmp/slam_log /tf /scan /odom" />
