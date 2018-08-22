@@ -14,7 +14,7 @@
   </node>
   
   <!-- AMCL -->
-  <node pkg="amcl" type="amcl" name="amcl" output="$(arg output)">
+  <node pkg="amcl" type="amcl" name="amcl" output="$(arg output)" required="true">
     <param name="use_map_topic"             value="$(arg use_map_topic)"/>
     <remap from="scan"                      to="$(arg scan_topic)"/>
     <remap from="map" to="amcl_map"/>
