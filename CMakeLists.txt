@@ -179,6 +179,7 @@ include_directories(
 install(FILES
   launch/agv.launch
   launch/ar.launch
+  launch/amcl.launch
   launch/boot.launch
   launch/buildmap.launch
   launch/config.launch
