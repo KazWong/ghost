@@ -1,7 +1,5 @@
 <launch>
   <arg name="output" default="log"/>
-  <arg name="use_map_topic"  default="false"/>
-  <arg name="scan_topic"     default="scan"/>
   <arg name="map_file" default=""/>
   <arg name="amcl_map_file" default=""/>
   
@@ -24,9 +22,7 @@
   
   <!-- AMCL -->
   <include file="$(find boot)/launch/amcl.launch">
-    <args name="use_map_topic"  value="$(arg use_map_topic)"/>
-    <args name="scan"           value="$(arg scan_topic)"/>
-    <args name="map_file"       value="$(arg amcl_map_file)"/>
+    <args name="map_file" value="$(arg amcl_map_file)"/>
   </include>
 
   <!-- Movebase -->

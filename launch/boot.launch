@@ -67,7 +67,7 @@
     <!-- Navigation -->
     <include if="$(arg navigation)" file="$(find boot)/launch/navigation.launch">
       <arg name="map_file" value="$(arg map_file)"/>
-      <arg name="amcl_map_file" default="$(arg amcl_map_file)"/>
+      <arg name="amcl_map_file" value="$(arg amcl_map_file)"/>
     </include>
     
     <!-- rosbag -->
