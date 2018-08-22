@@ -22,7 +22,7 @@
   
   <!-- AMCL -->
   <include file="$(find boot)/launch/amcl.launch">
-    <args name="map_file" value="$(arg amcl_map_file)"/>
+    <args name="amcl_map_file" value="$(arg amcl_map_file)"/>
   </include>
 
   <!-- Movebase -->

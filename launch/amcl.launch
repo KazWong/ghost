@@ -2,14 +2,14 @@
   <arg name="output" default="log"/>
   <arg name="use_map_topic"  default="false"/>
   <arg name="scan_topic"     default="scan"/>
-  <arg name="map_file" default=""/>
+  <arg name="amcl_map_file" default=""/>
   
   <!-- Parameters -->
   <rosparam file="$(find description)/param/amcl.yaml" ns="amcl"/>
 
   <!-- Map Server -->
   <node name="amcl_map_server" pkg="map_server" type="map_server" output="$(arg output)"
-    args="$(arg map_file)">
+    args="$(arg amcl_map_file)">
     <remap from="map" to="amcl_map"/>
   </node>
   
