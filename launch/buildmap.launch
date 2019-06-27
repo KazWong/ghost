@@ -41,7 +41,19 @@
               base_footprint base_laser 33" />
   
   <!-- Movebase -->
-  <include file="$(find navigation_param)/launch/move_base.launch"/>
+  <!-- Parameters -->
+  <rosparam file="$(find description)/param/amcl.yaml" ns="amcl"/>
+  <rosparam file="$(find description)/param/move_base.yaml" ns="move_base" />
+  <rosparam file="$(find description)/param/global_costmap.yaml" ns="move_base" />
+  <rosparam file="$(find description)/param/local_costmap.yaml" ns="move_base" />
+  <!-- <rosparam file="$(find description)/param/navfn.yaml" ns="move_base" /> -->
+  <rosparam file="$(find description)/param/global_planner.yaml" ns="move_base" />
+  <rosparam file="$(find description)/param/eband_local_planner.yaml" ns="move_base" />
+  <!--<rosparam file="$(find description)/param/base_local_planner.yaml" ns="move_base" />
+  <rosparam file="$(find description)/param/dwa_local_planner.yaml" ns="move_base" />--> 
+  
+  <node pkg="move_base" type="move_base" name="move_base">
+  </node>
   
   <!-- SLAM Log -->
   <node pkg="rosbag" type="record" name="SLAM_log"
