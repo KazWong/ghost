@@ -37,7 +37,7 @@
               $(arg lidar_yaw) 
               $(arg lidar_pitch) 
               $(arg lidar_roll) 
-              base_footprint base_laser 33" />
+              base_footprint agv_lidar 33" />
   
   <!-- Movebase -->
   <!-- Parameters -->
