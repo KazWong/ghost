@@ -20,7 +20,6 @@
   <!-- GMapping -->
   <include file="$(find boot)/launch/gmapping.launch"></include>
 
-   <include file="$(find rplidar_ros)/launch/rplidar.launch"/>
    <node unless="$(arg sim)" pkg="drive" type="$drive" name="drive"/>
   
   <!-- Robot TF -->
