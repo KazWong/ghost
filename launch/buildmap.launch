@@ -20,7 +20,7 @@
   <!-- GMapping -->
   <include file="$(find boot)/launch/gmapping.launch"></include>
 
-   <node unless="$(arg sim)" pkg="drive" type="$drive" name="drive"/>
+   <node pkg="drive" type="drive" name="drive"/>
   
   <!-- Robot TF -->
   <include if="$(arg tf)" file="$(find boot)/launch/tf.launch">
