@@ -20,20 +20,8 @@
   <!-- GMapping -->
   <include file="$(find boot)/launch/gmapping.launch"></include>
 
-  <!-- agv -->
-  <include file="$(find boot)/launch/agv.launch">
-    <arg name="sim" value="$(arg sim)"/>
-    <arg name="keyboard" value="$(arg keyboard)"/>
-    <arg name="joystick" value="$(arg joystick)"/>
-    <arg name="autorepeat_rate" value="$(arg joystick_autorepeat_rate)"/>
-  </include>
-
-  <!-- Lidar -->
-  <include unless="$(arg sim)" file="$(find boot)/launch/lidar.launch">
-    <arg name="sick_ip" value="$(arg sick_ip)"/>
-    <arg name="sweep_port" value="$(arg sweep_port)"/>
-    <arg name="sweep" value="$(arg sweep)" />
-  </include>
+   <include file="$(find rplidar_ros)/launch/rplidar.launch"/>
+   <node unless="$(arg sim)" pkg="drive" type="$drive" name="drive" output="$(arg output)"/>
   
   <!-- Robot TF -->
   <include if="$(arg tf)" file="$(find boot)/launch/tf.launch">
