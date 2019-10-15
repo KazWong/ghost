@@ -4,15 +4,12 @@
   <arg name="amcl_map_file" default=""/>
   
   <!-- Parameters -->
-  <rosparam file="$(find description)/param/amcl.yaml" ns="amcl"/>
-  <rosparam file="$(find description)/param/move_base.yaml" ns="move_base" />
-  <rosparam file="$(find description)/param/global_costmap.yaml" ns="move_base" />
-  <rosparam file="$(find description)/param/local_costmap.yaml" ns="move_base" />
-  <!-- <rosparam file="$(find description)/param/navfn.yaml" ns="move_base" /> -->
-  <rosparam file="$(find description)/param/global_planner.yaml" ns="move_base" />
-  <rosparam file="$(find description)/param/eband_local_planner.yaml" ns="move_base" />
-  <!--<rosparam file="$(find description)/param/base_local_planner.yaml" ns="move_base" />
-  <rosparam file="$(find description)/param/dwa_local_planner.yaml" ns="move_base" />--> 
+  <rosparam file="$(find ghost)/param/amcl.yaml" ns="amcl"/>
+  <rosparam file="$(find ghost)/param/move_base.yaml" ns="move_base" />
+  <rosparam file="$(find ghost)/param/global_costmap.yaml" ns="move_base" />
+  <rosparam file="$(find ghost)/param/local_costmap.yaml" ns="move_base" />
+  <rosparam file="$(find ghost)/param/global_planner.yaml" ns="move_base" />
+  <rosparam file="$(find ghost)/param/eband_local_planner.yaml" ns="move_base" />
 
 
   <!-- Map Server -->
@@ -21,7 +18,7 @@
   </node>
   
   <!-- AMCL -->
-  <include file="$(find boot)/launch/amcl.launch">
+  <include file="$(find ghost)/launch/amcl.launch">
     <arg name="amcl_map_file" value="$(arg amcl_map_file)"/>
   </include>
 
@@ -30,6 +27,6 @@
   </node>
   
   
-  <!-- <include file="$(find navigation_param)/launch/dynamic_reconfig.launch"/> -->
+  <!-- <include file="$(find ghost)/param/dynamic_reconfig.launch"/> -->
 </launch>
 

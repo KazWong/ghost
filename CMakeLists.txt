@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(boot)
+project(ghost)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -7,7 +7,15 @@ project(boot)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED roslaunch)
+find_package(catkin REQUIRED COMPONENTS
+  std_msgs
+  geometry_msgs
+  nav_msgs
+  message_generation
+  actionlib_msgs
+  dynamic_reconfigure
+  roslaunch
+)
 roslaunch_add_file_check(launch)
 
 ## System dependencies are found with CMake's conventions
@@ -44,31 +52,35 @@ roslaunch_add_file_check(launch)
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  can_msg.msg
+  PosCmd.msg
+  wheel_Int.msg
+  wheel_Float.msg
+  battery.msg
+)
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  StringCmd.srv
+  SetOdom.srv
+)
 
 ## Generate actions in the 'action' folder
-# add_action_files(
-#   FILES
-#   Action1.action
-#   Action2.action
-# )
+add_action_files(
+  FILES
+)
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs  # Or other packages containing msgs
+  geometry_msgs
+  nav_msgs
+  actionlib_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -101,8 +113,8 @@ roslaunch_add_file_check(launch)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES boot
-#  CATKIN_DEPENDS other_catkin_pkg
+#  LIBRARIES ghost
+  CATKIN_DEPENDS std_msgs message_runtime actionlib_msgs dynamic_reconfigure
 #  DEPENDS system_lib
 )
 
@@ -119,7 +131,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/boot.cpp
+#   src/${PROJECT_NAME}/ghost.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -130,7 +142,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/boot_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/ghost_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -169,11 +181,11 @@ include_directories(
 # )
 
 ## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+  FILES_MATCHING PATTERN "*.h"
+  PATTERN ".svn" EXCLUDE
+)
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 install(FILES
@@ -182,9 +194,7 @@ install(FILES
   launch/amcl.launch
   launch/boot.launch
   launch/buildmap.launch
-  launch/config.launch
   launch/gmapping.launch
-  launch/lidar.launch
   launch/navigation.launch
   launch/power.launch
   launch/tf.launch
@@ -192,13 +202,32 @@ install(FILES
   launch/usb_cam.launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
 )
+install(FILES
+  param/amcl.yaml
+  param/base_local_planner.yaml
+  param/dwa_local_planner.yaml
+  param/eband_local_planner.yaml
+  param/global_costmap.yaml
+  param/global_planner.yaml
+  param/local_costmap.yaml
+  param/move_base.yaml
+  param/navfn.yaml
+  param/xbox.config.yaml
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/param
+)
+install(FILES
+  urdf/omni_wheel.urdf.xacro
+  urdf/robot.urdf.xacro
+  urdf/wheel.urdf.xacro
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf
+)
 
 #############
 ## Testing ##
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_boot.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_ghost.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

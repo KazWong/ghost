@@ -1,37 +1,22 @@
 <launch>
   <arg name="output" default="log"/>
   <arg name="sim" default="false"/>
-  <arg name="driver" default="accelnet"/> <!-- accelnet | imc -->
   <arg name="keyboard" default="false"/>
   <arg name="joystick" default="false"/>
-  <arg name="parking" default="false"/>
   <arg name="autorepeat_rate" default="12"/>
   
   <arg name="joy_dev" default="" />
   
   <!-- Parameters -->
-  <rosparam file="$(find description)/param/cartmove.yaml" ns="hardware"/>
-  <rosparam file="$(find description)/param/hardware.yaml" ns="hardware"/>
-  <rosparam file="$(find description)/param/parking.yaml" ns="hardware"/>
-  <rosparam file="$(find description)/param/xbox.config.yaml" ns="joystick"/>
-  
-
-  <!-- Cartmove -->
-  <node unless="$(arg sim)" pkg="cartmove" type="$(arg driver)" name="cart_sub" 
-  output="$(arg output)" required="true"/>
+  <rosparam file="$(find ghost)/param/xbox.config.yaml" ns="joystick"/>
 
   <!-- joystick -->
   <node if="$(arg joystick)" pkg="joy" type="joy_node" name="joy_node" output="$(arg output)">
     <param name="dev" value="$(arg joy_dev)" />
-    <param name="deadzone" value="0.3" />
     <param name="autorepeat_rate" value="$(arg autorepeat_rate)" />
   </node>
   <node if="$(arg joystick)" pkg="teleop_twist_joy" type="teleop_node" name="joystick"/>
 
   <!-- Keyboard -->
   <node if="$(arg keyboard)" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="keyboard" output="$(arg output)"/>
-  
-  <!-- Parking -->
-  <node if="$(arg parking)" pkg="parking" name="parking_server" type="parking_srv" 
-        output="$(arg output)"/>
 </launch>

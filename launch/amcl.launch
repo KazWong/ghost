@@ -5,7 +5,7 @@
   <arg name="amcl_map_file" default=""/>
   
   <!-- Parameters -->
-  <rosparam file="$(find description)/param/amcl.yaml" ns="amcl"/>
+  <rosparam file="$(find ghost)/param/amcl.yaml" ns="amcl"/>
 
   <!-- Map Server -->
   <node name="amcl_map_server" pkg="map_server" type="map_server" output="$(arg output)"

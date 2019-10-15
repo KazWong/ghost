@@ -2,28 +2,19 @@
   <arg name="ns" default=""/>
   <arg name="sim" default="false"/>
   <arg name="tf" default="false"/>
-  <arg name="ur5" default="false"/>
+  <arg name="uni_robot" default="false"/>
   <arg name="agv" default="false"/>
   <arg name="navigation" default="false"/>
-  <arg name="lidar" default="false"/>
   <arg name="rosbag" default="false"/>
 
   <!-- Robot TF -->
   <arg name="joint_pub" default="false"/>
-  <!-- ur5 -->
-  <arg name="ur_ip" default="0.0.0.0"/>
   <!-- agv -->
-  <arg name="driver" default="accelnet"/>
   <arg name="keyboard" default="false"/>
   <arg name="joystick" default="false"/>
-  <arg name="parking" default="false"/>
   <arg name="joy_dev" default="/dev/input/js0" />
   <arg name="joystick_autorepeat_rate" default="20"/>
-  <!-- Lidar -->
-  <arg name="sick_ip" default="0.0.0.0" />
-  <arg name="sweep_port" default="/dev/ttyUSB0"/>
-  <arg name="sweep" default="false" />
-  <!-- Navigation -->
+  <!-- Navigation stack -->
   <arg name="map_file" default=""/>
   <arg name="amcl_map_file" default=""/>
   <!-- rosbag -->
@@ -32,40 +23,24 @@
   <arg name="log_path" default="/tmp/log"/>
   
 
-  <!-- <group ns="$(arg ns)"> -->
     <!-- Robot TF -->
-    <include if="$(arg tf)" file="$(find boot)/launch/tf.launch">
+    <include if="$(arg tf)" file="$(find ghost)/launch/tf.launch">
       <arg name="sim" value="$(arg sim)"/>
       <arg name="ns" value="$(arg ns)"/>
       <arg name="joint_pub" value="$(arg joint_pub)"/>
     </include>
-
-    <!-- UR5 -->
-    <include if="$(arg ur5)" file="$(find boot)/launch/ur5.launch">
-      <arg name="sim" value="$(arg sim)"/>
-      <arg name="ur_ip" value="$(arg ur_ip)"/>
-    </include>
     
     <!-- AGV -->
-    <include if="$(arg agv)" file="$(find boot)/launch/agv.launch">
+    <include if="$(arg agv)" file="$(find ghost)/launch/agv.launch">
       <arg name="sim" value="$(arg sim)"/>
-      <arg name="driver" value="$(arg driver)"/>
       <arg name="keyboard" value="$(arg keyboard)"/>
       <arg name="joystick" value="$(arg joystick)"/>
-      <arg name="parking" value="$(arg parking)"/>
       <arg name="joy_dev" default="$(arg joy_dev)" />
       <arg name="autorepeat_rate" value="$(arg joystick_autorepeat_rate)"/>
     </include>
-    
-    <!-- Lidar -->
-    <include if="$(arg lidar)" file="$(find boot)/launch/lidar.launch">
-      <arg name="sick_ip" value="$(arg sick_ip)"/>
-      <arg name="sweep_port" value="$(arg sweep_port)"/>
-      <arg name="sweep" value="$(arg sweep)" />
-    </include>
 
-    <!-- Navigation -->
-    <include if="$(arg navigation)" file="$(find boot)/launch/navigation.launch">
+    <!-- Navigation stack -->
+    <include if="$(arg navigation)" file="$(find ghost)/launch/navigation.launch">
       <arg name="map_file" value="$(arg map_file)"/>
       <arg name="amcl_map_file" value="$(arg amcl_map_file)"/>
     </include>
@@ -79,15 +54,9 @@
         /amcl/parameter_descriptions
         /amcl/parameter_updates
         /amcl_pose
-        /cmd_pos
         /cmd_vel
-        /encoder
-        /feedback_wheelspd
-        /initialpose
-        /joint_states
         /map
         /map_metadata
-        /mobile_base/sensors/bumper_pointcloud
         /move_base/EBandPlannerROS/eband_visualization
         /move_base/EBandPlannerROS/eband_visualization_array
         /move_base/EBandPlannerROS/global_plan
@@ -128,5 +97,4 @@
         /particlecloud
         /pc2
         /record" />
-  <!-- </group> -->
 </launch>

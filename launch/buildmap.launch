@@ -2,9 +2,6 @@
   <arg name="ns" default=""/>
   <arg name="sim" default="false"/>
   <arg name="tf" default="false"/>
-  <arg name="sick_ip" default="0.0.0.0" />
-  <arg name="sweep_port" default=""/>
-  <arg name="sweep" default="false" />
   
   <arg name="keyboard" default="false"/>
   <arg name="joystick" default="false"/>
@@ -18,18 +15,16 @@
   <arg name="lidar_roll" default="0.000"/>
 
   <!-- GMapping -->
-  <include file="$(find boot)/launch/gmapping.launch"></include>
-
-   <node pkg="drive" type="drive" name="drive"/>
+  <include file="$(find ghost)/launch/gmapping.launch"></include>
   
   <!-- Robot TF -->
-  <include if="$(arg tf)" file="$(find boot)/launch/tf.launch">
+  <include if="$(arg tf)" file="$(find ghost)/launch/tf.launch">
     <arg name="sim" value="$(arg sim)"/>
     <arg name="ns" value="$(arg ns)"/>
     <arg name="joint_pub" value="false"/>
   </include>
 
-  <!--base_laser TF -->
+  <!--base_laser TF
   <node unless="$(arg sim)" pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" 
         args="$(arg lidar_x) 
               $(arg lidar_y) 
@@ -37,19 +32,16 @@
               $(arg lidar_yaw) 
               $(arg lidar_pitch) 
               $(arg lidar_roll) 
-              base_footprint agv_lidar 33" />
+              base_footprint agv_lidar 33" /> -->
   
   <!-- Movebase -->
   <!-- Parameters -->
-  <rosparam file="$(find description)/param/amcl.yaml" ns="amcl"/>
-  <rosparam file="$(find description)/param/move_base.yaml" ns="move_base" />
-  <rosparam file="$(find description)/param/global_costmap.yaml" ns="move_base" />
-  <rosparam file="$(find description)/param/local_costmap.yaml" ns="move_base" />
-  <!-- <rosparam file="$(find description)/param/navfn.yaml" ns="move_base" /> -->
-  <rosparam file="$(find description)/param/global_planner.yaml" ns="move_base" />
-  <rosparam file="$(find description)/param/eband_local_planner.yaml" ns="move_base" />
-  <!--<rosparam file="$(find description)/param/base_local_planner.yaml" ns="move_base" />
-  <rosparam file="$(find description)/param/dwa_local_planner.yaml" ns="move_base" />--> 
+  <rosparam file="$(find ghost)/param/amcl.yaml" ns="amcl"/>
+  <rosparam file="$(find ghost)/param/move_base.yaml" ns="move_base" />
+  <rosparam file="$(find ghost)/param/global_costmap.yaml" ns="move_base" />
+  <rosparam file="$(find ghost)/param/local_costmap.yaml" ns="move_base" />
+  <rosparam file="$(find ghost)/param/global_planner.yaml" ns="move_base" />
+  <rosparam file="$(find ghost)/param/eband_local_planner.yaml" ns="move_base" />
   
   <node pkg="move_base" type="move_base" name="move_base">
   </node>

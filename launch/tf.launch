@@ -14,7 +14,7 @@
 
   <!-- Parsing xacro and setting robot_description parameter -->
   <param name="robot_description" 
-         command="$(find xacro)/xacro --inorder '$(find description)/urdf/r2d2_ur5.urdf.xacro'" />
+         command="$(find xacro)/xacro '$(find ghost)/urdf/robot.urdf.xacro'" />
 
   <!-- Starting robot state publish which will publish tf -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
@@ -25,6 +25,6 @@
   </node>
 
   <node if="$(arg sim)" name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false"
-        output="screen" args="-urdf -model r2d2 -param robot_description 
+        output="screen" args="-urdf -model robo -param robot_description 
         -x $(arg shift_x) -y $(arg shift_y) -z $(arg shift_z) "/> 
 </launch>
