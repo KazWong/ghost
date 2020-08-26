@@ -126,7 +126,7 @@
   <gazebo reference="agv_lidar">
     <material>Gazebo/Blue</material>
     <turnGravityOff>false</turnGravityOff>
-    <sensor type="ray" name="agv_lidar">
+    <sensor type="ray" name="agv_lidar1">
       <pose>${box_size/2} 0 0 0 0 0</pose>
       <visualize>false</visualize>
       <update_rate>40</update_rate>
@@ -135,8 +135,8 @@
           <horizontal>
             <samples>720</samples>
             <resolution>1</resolution>
-            <min_angle>${-M_PI_2*3/2}</min_angle>
-            <max_angle>${M_PI_2*3/2}</max_angle>
+            <min_angle>${-M_PI}</min_angle>
+            <max_angle>${M_PI}</max_angle>
           </horizontal>
         </scan>
         <range>
@@ -160,6 +160,7 @@
       <odometryTopic>odom</odometryTopic> 
       <robotBaseFrame>base_footprint</robotBaseFrame>
       <odometryRate>12.0</odometryRate>
+      <publishTF>true</publishTF>
     </plugin>
   </gazebo> 
 

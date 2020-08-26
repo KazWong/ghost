@@ -3,7 +3,9 @@
   <arg name="world_name" default=""/>
   <arg name="shift_x" default="0.0"/>
   <arg name="shift_y" default="0.0"/>
+  <arg name="shift_z" default="0.0"/>
   <arg name="gui" default="true"/>
+  <arg name="tf" default="true"/>
 
   <!-- Gazebo -->
   <include file="$(find ghost)/launch/gazebo.launch">
@@ -12,13 +14,15 @@
   </include>
 
   <!-- Environment TF -->
-  <node pkg="environment" name="static_broadcaster" type="static_broadcaster"></node>
+  <!-- <node pkg="environment" name="static_broadcaster" type="static_broadcaster"></node> -->
 
-  <include file="$(find ghost)/launch/tf.launch">
+  <!-- TF -->
+  <include if="$(arg tf)" file="$(find ghost)/launch/tf.launch">
     <arg name="sim" value="true"/>
     <arg name="ns" value=""/>
     <arg name="joint_pub" value="false"/>
     <arg name="shift_x" value="$(arg shift_x)"/>
     <arg name="shift_y" value="$(arg shift_y)"/>
+    <arg name="shift_z" value="$(arg shift_z)"/>
   </include>
 </launch>
