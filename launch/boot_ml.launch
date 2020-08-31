@@ -1,0 +1,100 @@
+<launch>
+  <arg name="ns" default=""/>
+  <arg name="sim" default="false"/>
+  <arg name="tf" default="false"/>
+  <arg name="uni_robot" default="false"/>
+  <arg name="agv" default="false"/>
+  <arg name="navigation" default="false"/>
+  <arg name="rosbag" default="false"/>
+
+  <!-- Robot TF -->
+  <arg name="joint_pub" default="false"/>
+  <!-- agv -->
+  <arg name="keyboard" default="false"/>
+  <arg name="joystick" default="false"/>
+  <arg name="joy_dev" default="/dev/input/js0" />
+  <arg name="joystick_autorepeat_rate" default="20"/>
+  <!-- Navigation stack -->
+  <arg name="map_file" default=""/>
+  <arg name="amcl_map_file" default=""/>
+  <!-- rosbag -->
+  <arg name="duration" default="10m"/>
+  <arg name="split" default="12"/>
+  <arg name="log_path" default="/tmp/log"/>
+  
+
+    <!-- Robot TF -->
+    <include if="$(arg tf)" file="$(find ghost)/launch/tf.launch">
+      <arg name="sim" value="$(arg sim)"/>
+      <arg name="ns" value="$(arg ns)"/>
+      <arg name="joint_pub" value="$(arg joint_pub)"/>
+    </include>
+    
+    <!-- AGV -->
+    <include if="$(arg agv)" file="$(find ghost)/launch/agv.launch">
+      <arg name="sim" value="$(arg sim)"/>
+      <arg name="keyboard" value="$(arg keyboard)"/>
+      <arg name="joystick" value="$(arg joystick)"/>
+      <arg name="joy_dev" default="$(arg joy_dev)" />
+      <arg name="autorepeat_rate" value="$(arg joystick_autorepeat_rate)"/>
+    </include>
+
+    <!-- Navigation stack -->
+    <include if="$(arg navigation)" file="$(find ghost)/launch/navigation_ml.launch">
+      <arg name="map_file" value="$(arg map_file)"/>
+      <arg name="amcl_map_file" value="$(arg amcl_map_file)"/>
+    </include>
+    
+    <!-- rosbag -->
+    <node if="$(arg rosbag)" pkg="rosbag" type="record" name="log"
+        args="record --split --duration=$(arg duration) --max-splits $(arg split) -o $(arg log_path) 
+        /tf
+        /tf_static 
+        /scan
+        /amcl/parameter_descriptions
+        /amcl/parameter_updates
+        /amcl_pose
+        /cmd_vel
+        /map
+        /map_metadata
+        /move_base/EBandPlannerROS/eband_visualization
+        /move_base/EBandPlannerROS/eband_visualization_array
+        /move_base/EBandPlannerROS/global_plan
+        /move_base/EBandPlannerROS/local_plan
+        /move_base/EBandPlannerROS/parameter_descriptions
+        /move_base/EBandPlannerROS/parameter_updates
+        /move_base/NavfnROS/plan
+        /move_base/cancel
+        /move_base/current_goal
+        /move_base/feedback
+        /move_base/global_costmap/costmap
+        /move_base/global_costmap/costmap_updates
+        /move_base/global_costmap/footprint
+        /move_base/global_costmap/inflation_layer/parameter_descriptions
+        /move_base/global_costmap/inflation_layer/parameter_updates
+        /move_base/global_costmap/obstacle_layer/parameter_descriptions
+        /move_base/global_costmap/obstacle_layer/parameter_updates
+        /move_base/global_costmap/parameter_descriptions
+        /move_base/global_costmap/parameter_updates
+        /move_base/global_costmap/static_layer/parameter_descriptions
+        /move_base/global_costmap/static_layer/parameter_updates
+        /move_base/goal
+        /move_base/local_costmap/costmap
+        /move_base/local_costmap/costmap_updates
+        /move_base/local_costmap/footprint
+        /move_base/local_costmap/inflation_layer/parameter_descriptions
+        /move_base/local_costmap/inflation_layer/parameter_updates
+        /move_base/local_costmap/obstacle_layer/parameter_descriptions
+        /move_base/local_costmap/obstacle_layer/parameter_updates
+        /move_base/local_costmap/parameter_descriptions
+        /move_base/local_costmap/parameter_updates
+        /move_base/parameter_descriptions
+        /move_base/parameter_updates
+        /move_base/result
+        /move_base/status
+        /move_base_simple/goal
+        /odom
+        /particlecloud
+        /pc2
+        /record" />
+</launch>

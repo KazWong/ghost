@@ -46,7 +46,7 @@
   <node pkg="move_base" type="move_base" name="move_base">
   </node>
   
-  <!-- SLAM Log -->
+  <!-- SLAM Log
   <node pkg="rosbag" type="record" name="SLAM_log"
-        args="record -o /tmp/slam_log /tf /scan /odom" />
+        args="record -o /tmp/slam_log /tf /scan /odom" /> -->
 </launch>
