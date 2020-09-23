@@ -8,7 +8,7 @@
   <arg name="joy_dev" default="" />
   
   <!-- Parameters -->
-  <rosparam file="$(find ghost)/param/xbox.config.yaml" ns="joystick"/>
+  <rosparam file="$(find ghost)/param/joystick.yaml" ns="joystick"/>
 
   <!-- joystick -->
   <node if="$(arg joystick)" pkg="joy" type="joy_node" name="joy_node" output="$(arg output)">

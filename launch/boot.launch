@@ -9,6 +9,9 @@
 
   <!-- Robot TF -->
   <arg name="joint_pub" default="false"/>
+  <arg name="shift_x" default="0.0"/>
+  <arg name="shift_y" default="0.0"/>
+  <arg name="shift_z" default="0.0"/>
   <!-- agv -->
   <arg name="keyboard" default="false"/>
   <arg name="joystick" default="false"/>
@@ -28,6 +31,9 @@
       <arg name="sim" value="$(arg sim)"/>
       <arg name="ns" value="$(arg ns)"/>
       <arg name="joint_pub" value="$(arg joint_pub)"/>
+      <arg name="shift_x" value="$(arg shift_x)"/>
+      <arg name="shift_y" value="$(arg shift_y)"/>
+      <arg name="shift_z" value="$(arg shift_z)"/>
     </include>
     
     <!-- AGV -->
