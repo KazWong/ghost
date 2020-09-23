@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="mpo_500">
 
+  <!-- Macro for calculating inertia of cylinder -->
+  <xacro:macro name="cylinder_inertia" params="m r h">
+    <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
+              iyy="${m*(3*r*r+h*h)/12}" iyz = "0"
+              izz="${m*r*r/2}" /> 
+  </xacro:macro>
+  
   <xacro:macro name="omni_wheel_250" params="name parent *origin">
    <joint name="${name}_joint" type="fixed">
     <xacro:insert_block name="origin" />
@@ -12,23 +19,23 @@
 
    <link name="${name}_link" type="wheel">
     <inertial>
-      <mass value="0.001" />
+      <mass value="2.1" />
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001" />
+      <cylinder_inertia m="2.1" r="0.07825" h="0.085"/>
     </inertial>
 
     <visual>
-     <origin xyz="0 0 0" rpy="0 0 1.571" />
+     <origin xyz="0 0 0" rpy="1.570796326 0 0" />
      <geometry>
-        <mesh filename="package://ghost/meshes/MPO-500-WHEEL.STL"/>
+        <cylinder radius="0.07825" length="0.085"/>
      </geometry>
      <material name="Neobotix/Black" />
     </visual>
 
     <collision>
-     <origin xyz="0 0 0" rpy="1.59 0 0" />
+     <origin xyz="0 0 0" rpy="1.570796326 0 0" />
      <geometry>
-        <cylinder radius="0.12" length="0.1"/>
+        <cylinder radius="0.07825" length="0.085"/>
      </geometry>
     </collision>
    </link>
