@@ -1,6 +1,9 @@
 <launch>
   <arg name="ns" default=""/>
+  <arg name="config" default="$(find ghost)"/>
   <arg name="sim" default="false"/>
+
+  <arg name="robot" default="robot"/>
   <arg name="joint_pub" default="false"/>
   <arg name="shift_x" default="0.0"/>
   <arg name="shift_y" default="0.0"/>
@@ -13,18 +16,18 @@
   </node>
 
   <!-- Parsing xacro and setting robot_description parameter -->
-  <param name="robot_description" 
-         command="$(find xacro)/xacro '$(find ghost)/urdf/robot.urdf.xacro'" />
-  
-  <!--base_link TF -->
-  <node  pkg="tf" type="static_transform_publisher" name="base_link_broadcaster" 
-        args="0.0 
-              0.0  
-              0.0  
-              0.0  
-              0.0 
-              0.0  
-              base_footprint base_link 1" /> 
+  <param name="robot_description"
+         command="$(find xacro)/xacro '$(arg config)/urdf/$(arg robot).urdf.xacro'" />
+
+  <!--base_link TF
+  <node  pkg="tf" type="static_transform_publisher" name="base_link_broadcaster"
+        args="0.0
+              0.0
+              0.0
+              0.0
+              0.0
+              0.0
+              base_footprint base_link 1" />  -->
 
   <!-- Starting robot state publish which will publish tf -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
@@ -35,6 +38,6 @@
   </node>
 
   <node if="$(arg sim)" name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false"
-        output="screen" args="-urdf -model robo -param robot_description 
-        -x $(arg shift_x) -y $(arg shift_y) -z $(arg shift_z) "/> 
+        output="screen" args="-urdf -model robo -param robot_description
+        -x $(arg shift_x) -y $(arg shift_y) -z $(arg shift_z) "/>
 </launch>

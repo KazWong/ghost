@@ -124,7 +124,7 @@
     <sensor type="ray" name="agv_lidar1">
       <pose>${box_size/2} 0 0 0 0 0</pose>
       <visualize>false</visualize>
-      <update_rate>600</update_rate>
+      <update_rate>60</update_rate>
       <ray>
         <scan>
           <horizontal>
@@ -154,7 +154,7 @@
       <odometryFrame>odom</odometryFrame> 
       <odometryTopic>odom</odometryTopic> 
       <robotBaseFrame>base_footprint</robotBaseFrame>
-      <odometryRate>600.0</odometryRate>
+      <odometryRate>60.0</odometryRate>
       <publishTF>true</publishTF>
     </plugin>
   </gazebo> 

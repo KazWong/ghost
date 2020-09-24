@@ -1,35 +1,42 @@
 <launch>
+	<arg name="ns" default=""/>
+	<arg name="config" default="$(find ghost)"/>
+	<arg name="slam" default="true"/>
+	<arg name="gmapping" default="false"/>
+
   <arg name="output" default="log"/>
-  <arg name="slam" default="true"/>
   <arg name="map_file" default=""/>
   <arg name="amcl_map_file" default=""/>
-  
+
   <!-- Parameters -->
-  <rosparam file="$(find ghost)/param/amcl.yaml" ns="amcl"/>
-  <rosparam file="$(find ghost)/param/move_base.yaml" ns="move_base" />
-  <rosparam file="$(find ghost)/param/global_costmap.yaml" ns="move_base" />
-  <rosparam file="$(find ghost)/param/local_costmap.yaml" ns="move_base" />
-  <rosparam file="$(find ghost)/param/global_planner.yaml" ns="move_base" />
-  <rosparam file="$(find ghost)/param/base_local_planner.yaml" ns="move_base" />
-  <rosparam file="$(find ghost)/param/dwa_local_planner.yaml" ns="move_base" />
-  <rosparam file="$(find ghost)/param/eband_local_planner.yaml" ns="move_base" />
+  <rosparam file="$(arg config)/param/move_base.yaml" ns="move_base" />
+  <rosparam file="$(arg config)/param/global_costmap.yaml" ns="move_base" />
+  <rosparam file="$(arg config)/param/local_costmap.yaml" ns="move_base" />
+  <rosparam file="$(arg config)/param/global_planner.yaml" ns="move_base" />
+  <rosparam file="$(arg config)/param/base_local_planner.yaml" ns="move_base" />
+  <rosparam file="$(arg config)/param/dwa_local_planner.yaml" ns="move_base" />
+  <rosparam file="$(arg config)/param/eband_local_planner.yaml" ns="move_base" />
 
 
   <!-- Map Server -->
-  <node name="map_server" pkg="map_server" type="map_server" output="$(arg output)"
+  <node if="$(arg slam)" name="map_server" pkg="map_server" type="map_server" output="$(arg output)"
     args="$(arg map_file)">
   </node>
-  
+
   <!-- AMCL -->
   <include if="$(arg slam)" file="$(find ghost)/launch/amcl.launch">
+		<arg name="ns" value="$(arg ns)"/>
+		<arg name="config" value="$(arg config)"/>
     <arg name="amcl_map_file" value="$(arg amcl_map_file)"/>
   </include>
+
+	<!-- GMapping -->
+  <include if="$(arg gmapping)" file="$(find ghost)/launch/gmapping.launch">
+		<arg name="ns" value="$(arg ns)"/>
+		<arg name="config" value="$(arg config)"/>
+	</include>
 
   <!-- Movebase -->
   <node pkg="move_base" type="move_base" name="move_base" respawn="false" output="$(arg output)">
   </node>
-  
-  
-  <!-- <include file="$(find ghost)/param/dynamic_reconfig.launch"/> -->
 </launch>
-

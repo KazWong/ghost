@@ -1,18 +1,20 @@
 <launch>
+  <arg name="ns" default=""/>
+	<arg name="config" default="$(find ghost)"/>
   <arg name="output" default="log"/>
   <arg name="use_map_topic"  default="false"/>
   <arg name="scan_topic"     default="scan"/>
   <arg name="amcl_map_file" default=""/>
-  
+
   <!-- Parameters -->
-  <rosparam file="$(find ghost)/param/amcl.yaml" ns="amcl"/>
+  <rosparam file="$(arg config)/param/amcl.yaml" ns="amcl"/>
 
   <!-- Map Server -->
   <node name="amcl_map_server" pkg="map_server" type="map_server" output="$(arg output)"
     args="$(arg amcl_map_file)">
     <remap from="map" to="amcl_map"/>
   </node>
-  
+
   <!-- AMCL -->
   <node pkg="amcl" type="amcl" name="amcl" output="$(arg output)" required="true">
     <param name="use_map_topic"             value="$(arg use_map_topic)"/>
@@ -20,4 +22,3 @@
     <remap from="map" to="amcl_map"/>
   </node>
 </launch>
-

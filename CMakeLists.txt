@@ -11,10 +11,12 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   geometry_msgs
   nav_msgs
+  sensor_msgs
   message_generation
   actionlib_msgs
   dynamic_reconfigure
   roslaunch
+  rospy
 )
 roslaunch_add_file_check(launch)
 
@@ -81,6 +83,7 @@ generate_messages(
   geometry_msgs
   nav_msgs
   actionlib_msgs
+  sensor_msgs
 )
 
 ################################################
@@ -191,16 +194,16 @@ install(DIRECTORY include/${PROJECT_NAME}/
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 install(FILES
   launch/agv.launch
-  launch/ar.launch
+#  launch/ar.launch
   launch/amcl.launch
   launch/boot.launch
   launch/buildmap.launch
   launch/gmapping.launch
   launch/navigation.launch
-  launch/power.launch
+#  launch/power.launch
   launch/tf.launch
-  launch/ur5.launch
-  launch/usb_cam.launch
+#  launch/ur5.launch
+#  launch/usb_cam.launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
 )
 install(FILES
@@ -213,13 +216,13 @@ install(FILES
   param/local_costmap.yaml
   param/move_base.yaml
   param/navfn.yaml
-  param/xbox.config.yaml
+#  param/xbox.config.yaml
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/param
 )
 install(FILES
   urdf/omni_wheel.urdf.xacro
   urdf/robot.urdf.xacro
-  urdf/wheel.urdf.xacro
+#  urdf/wheel.urdf.xacro
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf
 )
 
