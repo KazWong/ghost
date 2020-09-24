@@ -1,5 +1,6 @@
 <launch>
   <arg name="output" default="log"/>
+  <arg name="slam" default="true"/>
   <arg name="map_file" default=""/>
   <arg name="amcl_map_file" default=""/>
   
@@ -20,7 +21,7 @@
   </node>
   
   <!-- AMCL -->
-  <include file="$(find ghost)/launch/amcl.launch">
+  <include if="$(arg slam)" file="$(find ghost)/launch/amcl.launch">
     <arg name="amcl_map_file" value="$(arg amcl_map_file)"/>
   </include>
 

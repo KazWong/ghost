@@ -18,6 +18,7 @@
   <arg name="joy_dev" default="/dev/input/js0" />
   <arg name="joystick_autorepeat_rate" default="20"/>
   <!-- Navigation stack -->
+  <arg name="slam" default="true"/>
   <arg name="map_file" default=""/>
   <arg name="amcl_map_file" default=""/>
   <!-- rosbag -->
@@ -47,6 +48,7 @@
 
     <!-- Navigation stack -->
     <include if="$(arg navigation)" file="$(find ghost)/launch/navigation.launch">
+    	<arg name="slam" value="$(arg slam)"/>
       <arg name="map_file" value="$(arg map_file)"/>
       <arg name="amcl_map_file" value="$(arg amcl_map_file)"/>
     </include>

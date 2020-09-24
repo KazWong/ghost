@@ -59,6 +59,7 @@ add_message_files(
   wheel_Int.msg
   wheel_Float.msg
   battery.msg
+  traindata.msg
 )
 
 ## Generate services in the 'srv' folder
