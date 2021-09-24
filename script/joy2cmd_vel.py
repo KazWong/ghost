@@ -1,13 +1,13 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import numpy as np
 import rospy
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Joy
 
-MAX_LIN_VEL = 0.6 #4.916592502868
+MAX_LIN_VEL = 0.3 #4.916592502868
 MAX_ANG_VEL = 1.570796326 #4.71238898
-PUB_HZ = 5.0
+PUB_HZ = 40.0
 joy = Joy()
 cmd_vel_msg = Twist()
 
@@ -31,7 +31,7 @@ def main():
     while not rospy.is_shutdown():
         if (len(joy.axes) > 0):
             cmd_vel_msg.linear.x = MAX_LIN_VEL * joy.axes[1]
-            cmd_vel_msg.linear.y = 0.0 #MAX_LIN_VEL * joy.axes[0]
+            cmd_vel_msg.linear.y = MAX_LIN_VEL * joy.axes[0]
             cmd_vel_msg.angular.z = MAX_ANG_VEL * joy.axes[3]
         else:
             cmd_vel_msg.linear.x = 0.0
@@ -47,7 +47,6 @@ def main():
                 cmd_vel_msg.linear.z = 0.3
             if (joy.buttons[0] == 0 and joy.buttons[1] == 0 and joy.buttons[7] == 0):
                 cmd_vel_msg.linear.z = 0.0
-                
             if (joy.buttons[4] == 1):
                 cmd_vel_pub.publish(cmd_vel_msg)
             elif (joy.buttons[4] == 0 and old_joy4 == 1):
@@ -55,8 +54,8 @@ def main():
                 cmd_vel_msg.linear.y = 0.0
                 cmd_vel_msg.angular.z = 0.0
                 cmd_vel_pub.publish(cmd_vel_msg)
-            old_joy4 = joy.buttons[4]
             
+            old_joy4 = joy.buttons[4]
         rospy.sleep(1./PUB_HZ)
 	
     rospy.spin()

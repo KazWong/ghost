@@ -1,28 +1,25 @@
 <launch>
   <arg name="ns" default=""/>
-  <arg name="config" default="$(find ghost)"/>
-  <arg name="sim" default="false"/>
   <arg name="tf" default="false"/>
-  <arg name="uni_robot" default="false"/>
-  <arg name="agv" default="false"/>
+  <arg name="manual" default="false"/>
   <arg name="navigation" default="false"/>
   <arg name="rosbag" default="false"/>
   <arg name="gazebo" default="false"/>
 
   <!-- tf -->
-  <arg name="robot" default="robot"/>
+  <arg name="robot" default=""/>
   <arg name="joint_pub" default="false"/>
   <arg name="shift_x" default="0.0"/>
   <arg name="shift_y" default="0.0"/>
   <arg name="shift_z" default="0.0"/>
-  <!-- agv -->
+  <!-- manual -->
   <arg name="keyboard" default="false"/>
   <arg name="joystick" default="false"/>
   <!-- navigation -->
-  <arg name="slam" default="true"/>
-  <arg name="gmapping" default="false"/>
-  <arg name="map_file" default=""/>
-  <arg name="amcl_map_file" default=""/>
+  <arg name="use_amcl" default="true"/>
+  <arg name="use_gmapping" default="false"/>
+  <arg name="map_name" default=""/>
+  <arg name="amcl_map_name" default=""/>
   <!-- rosbag -->
   <arg name="duration" default="10m"/>
   <arg name="split" default="12"/>
@@ -35,12 +32,25 @@
   <arg name="headless" default="false"/>
   <arg name="world_name" default="worlds/empty.world"/>
 
+  <arg name="config_robot" default="$(find config_robot)"/>
+	<arg name="config_env" default="$(find config_env)"/>
+	<arg name="param" default=""/>
+
+	<!-- Parameters -->
+  <!-- Map -->
+  <arg if="$(eval arg('map_name') != '')" name="map_file" default="$(arg config_env)/maps/$(arg map_name).yaml"/>
+  <arg if="$(eval arg('amcl_map_name') != '')" name="amcl_map_file" default="$(arg config_env)/maps/$(arg amcl_map_name).yaml"/>
+  <arg if="$(eval arg('amcl_map_name') == '')" name="amcl_map_file" default="$(arg config_env)/maps/$(arg map_name).yaml"/>
+  <!-- robot config -->
+  <rosparam if="$(eval arg('robot') != '')" file="$(arg config_robot)/urdf/$(arg robot).yaml" ns="move_base" />
+  <arg name="config_urdf" default="$(arg config_robot)"/>
+  <arg if="$(eval arg('param') != '')" name="config_param" default="$(arg config_robot)/nav_param/$(arg param)"/>
+
 
   <!-- tf -->
   <include if="$(arg tf)" file="$(find ghost)/launch/tf.launch">
     <arg name="ns" value="$(arg ns)"/>
-    <arg name="config" value="$(arg config)"/>
-    <arg name="sim" value="$(arg sim)"/>
+    <arg name="config" value="$(arg config_urdf)"/>
     <arg name="robot" value="$(arg robot)"/>
     <arg name="joint_pub" value="$(arg joint_pub)"/>
     <arg name="shift_x" value="$(arg shift_x)"/>
@@ -48,11 +58,10 @@
     <arg name="shift_z" value="$(arg shift_z)"/>
   </include>
 
-  <!-- agv -->
-  <include if="$(arg agv)" file="$(find ghost)/launch/agv.launch">
+  <!-- manual -->
+  <include if="$(arg manual)" file="$(find ghost)/launch/manual.launch">
     <arg name="ns" value="$(arg ns)"/>
-    <arg name="config" value="$(arg config)"/>
-    <arg name="sim" value="$(arg sim)"/>
+    <arg name="config" value="$(arg config_param)"/>
     <arg name="keyboard" value="$(arg keyboard)"/>
     <arg name="joystick" value="$(arg joystick)"/>
   </include>
@@ -60,9 +69,9 @@
   <!-- navigation -->
   <include if="$(arg navigation)" file="$(find ghost)/launch/navigation.launch">
     <arg name="ns" value="$(arg ns)"/>
-    <arg name="config" value="$(arg config)"/>
-    <arg name="slam" value="$(arg slam)"/>
-    <arg name="gmapping" default="$(arg gmapping)"/>
+    <arg name="config" value="$(arg config_param)"/>
+    <arg name="use_amcl" value="$(arg use_amcl)"/>
+    <arg name="use_gmapping" default="$(arg use_gmapping)"/>
     <arg name="map_file" value="$(arg map_file)"/>
     <arg name="amcl_map_file" value="$(arg amcl_map_file)"/>
   </include>

@@ -1,7 +1,6 @@
 <launch>
   <arg name="ns" default=""/>
   <arg name="config" default="$(find ghost)"/>
-  <arg name="sim" default="false"/>
 
   <arg name="output" default="log"/>
   <arg name="keyboard" default="false"/>
@@ -9,8 +8,13 @@
 
   <!-- Parameters -->
   <rosparam file="$(arg config)/param/joystick.yaml" ns="joystick"/>
+  
+  <!-- Joystick driver -->
+  <node pkg="joy" type="joy_node" name="joy_node">
+  	<param name="deadzone" value="0.1"/>
+  </node>
 
-  <!-- joystick -->
+  <!-- Joystick -->
   <node if="$(arg joystick)" pkg="ghost" type="joy2cmd_vel.py" name="joy2cmd_vel"/>
 
   <!-- Keyboard -->

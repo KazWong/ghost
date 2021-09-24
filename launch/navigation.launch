@@ -1,8 +1,8 @@
 <launch>
 	<arg name="ns" default=""/>
 	<arg name="config" default="$(find ghost)"/>
-	<arg name="slam" default="true"/>
-	<arg name="gmapping" default="false"/>
+	<arg name="use_amcl" default="true"/>
+	<arg name="use_gmapping" default="false"/>
 
   <arg name="output" default="log"/>
   <arg name="map_file" default=""/>
@@ -19,19 +19,19 @@
 
 
   <!-- Map Server -->
-  <node if="$(arg slam)" name="map_server" pkg="map_server" type="map_server" output="$(arg output)"
+  <node if="$(arg use_amcl)" name="map_server" pkg="map_server" type="map_server" output="$(arg output)"
     args="$(arg map_file)">
   </node>
 
   <!-- AMCL -->
-  <include if="$(arg slam)" file="$(find ghost)/launch/amcl.launch">
+  <include if="$(arg use_amcl)" file="$(find ghost)/launch/amcl.launch">
 		<arg name="ns" value="$(arg ns)"/>
 		<arg name="config" value="$(arg config)"/>
     <arg name="amcl_map_file" value="$(arg amcl_map_file)"/>
   </include>
 
 	<!-- GMapping -->
-  <include if="$(arg gmapping)" file="$(find ghost)/launch/gmapping.launch">
+  <include if="$(arg use_gmapping)" file="$(find ghost)/launch/gmapping.launch">
 		<arg name="ns" value="$(arg ns)"/>
 		<arg name="config" value="$(arg config)"/>
 	</include>
